@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  cd.webapi:
+  webapi:
     image: ${DOCKER_REGISTRY-}cdwebapi
     build:
       context: .
@@ -35,6 +35,14 @@ services:
     networks:
       - elastic
     mem_limit: 2g
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Digital_CinemaDb2978
+    ports:
+      - 5432:5432
 
 networks:
   elastic:
