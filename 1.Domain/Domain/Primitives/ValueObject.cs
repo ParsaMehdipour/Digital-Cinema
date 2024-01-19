@@ -16,10 +16,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
 
     public override int GetHashCode()
     {
-        return GetAtomicValues()
-            .Aggregate(
-                default(int),
-                HashCode.Combine);
+        return GetAtomicValues().Aggregate(default(int), HashCode.Combine);
     }
 
     private bool ValuesAreEqual(ValueObject other)
