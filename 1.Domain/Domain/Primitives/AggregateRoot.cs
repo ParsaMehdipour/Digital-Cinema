@@ -5,7 +5,7 @@ public class AggregateRoot : Entity
 
     protected AggregateRoot() { }
 
-    private readonly List<IDomainEvent> _domainEvents = [];
+    private readonly List<IDomainEvent> _domainEvents = new();
 
     public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.ToList();
 
