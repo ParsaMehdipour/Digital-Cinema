@@ -1,4 +1,5 @@
-﻿namespace Domain.Shared;
+﻿#nullable enable
+namespace Domain.Shared;
 
 public class Error : IEquatable<Error>
 {
