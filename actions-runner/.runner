@@ -1,0 +1,9 @@
+﻿{
+  "agentId": 2,
+  "agentName": "MSI",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus10.actions.githubusercontent.com/lyGuXnfNFvW1T7tsgwNa413Q3oclr0DlnbS1KbEMG33dsLLKD1/",
+  "gitHubUrl": "https://github.com/ParsaMehdipour/Digital-Cinema",
+  "workFolder": "_work"
+}
