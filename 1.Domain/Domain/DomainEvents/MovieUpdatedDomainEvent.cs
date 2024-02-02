@@ -2,18 +2,19 @@
 
 namespace Domain.DomainEvents;
 
-public sealed class MovieCreatedDomainEvent : DomainEvent
+public class MovieUpdatedDomainEvent : DomainEvent
 {
+
     #region Fields
 
     public Movie Movie { get; init; }
-
 
     #endregion
 
     #region Ctor
 
-    public MovieCreatedDomainEvent(Movie movie) => Movie = movie;
+    public MovieUpdatedDomainEvent(Movie movie) => Movie = movie;
 
     #endregion
+
 }

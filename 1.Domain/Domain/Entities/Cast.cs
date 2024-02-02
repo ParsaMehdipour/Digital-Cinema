@@ -3,7 +3,7 @@ using Domain.Primitives;
 using Domain.ValueObjects;
 
 namespace Domain.Entities;
-public class Cast : Entity, IAuditableEntity
+public class Cast : Entity
 {
     #region Ctor
 
@@ -39,10 +39,6 @@ public class Cast : Entity, IAuditableEntity
     public Gender Gender { get; private set; }
 
     public CastType CastType { get; private set; }
-
-    //AuditableEntity
-    public DateTime CreatedOnUtc { get; set; }
-    public DateTime? ModifiedOnUtc { get; set; }
 
     #endregion
 
