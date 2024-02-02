@@ -4,7 +4,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
-public class Movie : AggregateRoot, IAuditableEntity
+public class Movie : AggregateRoot
 {
     #region Fields
 
@@ -12,25 +12,21 @@ public class Movie : AggregateRoot, IAuditableEntity
     public Score ImdbScore { get; private set; } = null!;
     public Plot Plot { get; private set; } = null!;
     public MovieDurationInMinutes MovieDurationInMinutes { get; private set; } = null!;
-    public Guid GenreId { get; private set; }
     public DateTime ReleaseDate { get; private set; }
-
-    //AuditableEntity
-    public DateTime CreatedOnUtc { get; set; }
-    public DateTime? ModifiedOnUtc { get; set; }
+    public bool ShowOnSite { get; private set; }
 
     #endregion
 
     #region Ctor
 
-    private Movie(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, Guid genreId, DateTime releaseDate) : base(id)
+    private Movie(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite) : base(id)
     {
         SetTitle(title);
         SetScore(score);
         SetPlot(plot);
         SetMovieDurationInMinutes(movieDurationInMinutes);
-        SetGenreId(genreId);
         SetReleaseDate(releaseDate);
+        SetShowOnSite(showOnSite);
     }
 
     private Movie()
@@ -42,26 +38,74 @@ public class Movie : AggregateRoot, IAuditableEntity
 
     #region Methods
 
-    public Movie Create(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, Guid genreId, DateTime releaseDate)
+    public Movie Create(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite)
     {
-        var movie = new Movie(id, title, score, plot, movieDurationInMinutes, genreId, releaseDate);
+        var movie = new Movie(id, title, score, plot, movieDurationInMinutes, releaseDate, showOnSite);
 
-        movie.RaiseDomainEvent(new MovieCreatedDomainEvent(Guid.NewGuid(), movie.Id));
+        movie.RaiseDomainEvent(new MovieCreatedDomainEvent(this));
 
         return movie;
     }
 
-    public void SetTitle(Title title) => Title = title;
+    public void SetTitle(Title title)
+    {
+        if (Title.Equals(title)) return;
 
-    public void SetScore(Score imdbScore) => ImdbScore = imdbScore;
+        if (Title != null && Title.Equals(title) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
-    public void SetGenreId(Guid genreId) => GenreId = genreId;
+        Title = title;
+    }
 
-    public void SetPlot(Plot plot) => Plot = plot;
+    public void SetScore(Score imdbScore)
+    {
+        if (ImdbScore.Equals(imdbScore)) return;
 
-    public void SetMovieDurationInMinutes(MovieDurationInMinutes movieDurationInMinutes) => MovieDurationInMinutes = movieDurationInMinutes;
+        if (ImdbScore != imdbScore && ImdbScore.Equals(imdbScore) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
-    public void SetReleaseDate(DateTime releaseDate) => ReleaseDate = releaseDate;
+        ImdbScore = imdbScore;
+    }
+
+    public void SetPlot(Plot plot)
+    {
+        if (Plot.Equals(plot)) return;
+
+        if (Plot != null && Plot.Equals(plot) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
+
+        Plot = plot;
+    }
+
+    public void SetMovieDurationInMinutes(MovieDurationInMinutes movieDurationInMinutes)
+    {
+        if (MovieDurationInMinutes.Equals(movieDurationInMinutes)) return;
+
+        if (MovieDurationInMinutes != null && MovieDurationInMinutes.Equals(movieDurationInMinutes) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
+
+        MovieDurationInMinutes = movieDurationInMinutes;
+    }
+
+    public void SetReleaseDate(DateTime releaseDate)
+    {
+        if (releaseDate.Equals(releaseDate)) return;
+
+        if (ReleaseDate != default && ReleaseDate.Equals(releaseDate) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
+
+        ReleaseDate = releaseDate;
+    }
+
+    public void SetShowOnSite(bool showOnSite)
+    {
+        if (ShowOnSite.Equals(showOnSite)) return;
+
+        if (ShowOnSite != default && ShowOnSite.Equals(showOnSite) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
+
+        ShowOnSite = showOnSite;
+    }
 
     #endregion
 }
