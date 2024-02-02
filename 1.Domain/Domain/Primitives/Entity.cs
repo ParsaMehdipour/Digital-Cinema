@@ -1,11 +1,19 @@
 ﻿namespace Domain.Primitives;
-public class Entity : IEquatable<Entity>
+public class Entity : IEquatable<Entity>, IAuditableEntity
 {
     protected Entity() { }
 
     protected Entity(Guid id) => Id = id;
 
     public Guid Id { get; private init; }
+
+
+    //AuditableEntity
+    public DateTime CreatedOnUtc { get; set; }
+    public DateTime? ModifiedOnUtc { get; set; }
+    public bool IsDeleted { get; set; }
+
+    public override int GetHashCode() => Id.GetHashCode() * 41;
 
     public static bool operator ==(Entity? first, Entity? second) => first is not null && second is not null && first.Equals(second);
 
@@ -45,6 +53,4 @@ public class Entity : IEquatable<Entity>
 
         return entity.Id == Id;
     }
-
-    public override int GetHashCode() => Id.GetHashCode() * 41;
 }
