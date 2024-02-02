@@ -23,51 +23,51 @@ public static class DomainErrors
 
         public static readonly Error TooLong = new(
             "LastName.TooLong",
-            "FirstName name is too long");
+            "First name is too long");
     }
 
     public static class CinemaName
     {
         public static readonly Error Empty = new(
             "CinemaName.Empty",
-            "CinemaName name is empty");
+            "Cinema name is empty");
 
         public static readonly Error TooLong = new(
             "CinemaName.TooLong",
-            "CinemaName name is too long");
+            "Cinema name is too long");
     }
 
     public static class Address
     {
         public static readonly Error Empty = new(
             "Address.Empty",
-            "Address name is empty");
+            "Address is empty");
 
         public static readonly Error TooLong = new(
             "Address.TooLong",
-            "Address name is too long");
+            "Address is too long");
     }
 
     public static class CityName
     {
         public static readonly Error Empty = new(
             "CityName.Empty",
-            "CityName name is empty");
+            "City name is empty");
 
         public static readonly Error TooLong = new(
             "CityName.TooLong",
-            "CityName name is too long");
+            "City name is too long");
     }
 
     public static class StateName
     {
         public static readonly Error Empty = new(
             "StateName.Empty",
-            "StateName name is empty");
+            "State name is empty");
 
         public static readonly Error TooLong = new(
             "StateName.TooLong",
-            "StateName name is too long");
+            "State name is too long");
     }
 
     public static class LastName

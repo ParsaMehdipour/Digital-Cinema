@@ -13,6 +13,7 @@ public class Movie : AggregateRoot
     public Plot Plot { get; private set; } = null!;
     public MovieDurationInMinutes MovieDurationInMinutes { get; private set; } = null!;
     public DateTime ReleaseDate { get; private set; }
+    public string FilePath { get; private set; } = string.Empty;
     public bool ShowOnSite { get; private set; }
     public bool OnlineOnly { get; private set; }
 
@@ -117,6 +118,15 @@ public class Movie : AggregateRoot
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         OnlineOnly = onlineOnly;
+    }
+
+    public void SetFilePath(string filePath)
+    {
+        if (string.IsNullOrWhiteSpace(filePath)) return;
+
+        if (FilePath.Equals(filePath)) return;
+
+        FilePath = filePath;
     }
 
     #endregion
