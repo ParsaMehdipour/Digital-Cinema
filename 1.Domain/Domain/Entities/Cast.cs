@@ -46,17 +46,47 @@ public class Cast : Entity
 
     public Cast Create(Guid id, FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null) => new(id, firstName, lastName, gender, castType, isAlive, age);
 
-    public void SetFirstName(FirstName firstName) => FirstName = firstName;
+    public void SetFirstName(FirstName firstName)
+    {
+        if (FirstName.Equals(firstName)) return;
 
-    public void SetLastName(LastName lastName) => LastName = lastName;
+        FirstName = firstName;
+    }
 
-    public void SetIsAlive(bool isAlive) => IsAlive = isAlive;
+    public void SetLastName(LastName lastName)
+    {
+        if (LastName.Equals(lastName)) return;
 
-    public void SetAge(Age? age = null) => Age = age;
+        LastName = lastName;
+    }
 
-    public void SetGender(Gender gender) => Gender = gender;
+    public void SetIsAlive(bool isAlive)
+    {
+        if (IsAlive.Equals(isAlive)) return;
 
-    public void SetCastType(CastType castType) => CastType = castType;
+        IsAlive = isAlive;
+    }
+
+    public void SetAge(Age? age = null)
+    {
+        if (Age.Equals(age)) return;
+
+        Age = age;
+    }
+
+    public void SetGender(Gender gender)
+    {
+        if (Gender.Equals(gender)) return;
+
+        Gender = gender;
+    }
+
+    public void SetCastType(CastType castType)
+    {
+        if (CastType.Equals(castType)) return;
+
+        CastType = castType;
+    }
 
     #endregion
 }
