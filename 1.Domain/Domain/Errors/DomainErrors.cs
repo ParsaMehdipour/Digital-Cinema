@@ -26,6 +26,50 @@ public static class DomainErrors
             "FirstName name is too long");
     }
 
+    public static class CinemaName
+    {
+        public static readonly Error Empty = new(
+            "CinemaName.Empty",
+            "CinemaName name is empty");
+
+        public static readonly Error TooLong = new(
+            "CinemaName.TooLong",
+            "CinemaName name is too long");
+    }
+
+    public static class Address
+    {
+        public static readonly Error Empty = new(
+            "Address.Empty",
+            "Address name is empty");
+
+        public static readonly Error TooLong = new(
+            "Address.TooLong",
+            "Address name is too long");
+    }
+
+    public static class CityName
+    {
+        public static readonly Error Empty = new(
+            "CityName.Empty",
+            "CityName name is empty");
+
+        public static readonly Error TooLong = new(
+            "CityName.TooLong",
+            "CityName name is too long");
+    }
+
+    public static class StateName
+    {
+        public static readonly Error Empty = new(
+            "StateName.Empty",
+            "StateName name is empty");
+
+        public static readonly Error TooLong = new(
+            "StateName.TooLong",
+            "StateName name is too long");
+    }
+
     public static class LastName
     {
         public static readonly Error Empty = new(
@@ -91,8 +135,28 @@ public static class DomainErrors
             "MovieDurationInMinutes.Negative",
             "MovieDurationInMinutes is negative");
 
+        public static readonly Error Zero = new(
+           "MovieDurationInMinutes.Zero",
+           "MovieDurationInMinutes is Zero");
+
         public static readonly Error TooLong = new(
             "MovieDurationInMinutes.TooLong",
             "MovieDurationInMinutes is too long");
+    }
+
+
+    public static class TrailerDurationInMinutes
+    {
+        public static readonly Error Negative = new(
+            "TrailerDurationInMinutes.Negative",
+            "TrailerDurationInMinutes is negative");
+
+        public static readonly Error Zero = new(
+           "TrailerDurationInMinutes.Zero",
+           "TrailerDurationInMinutes is Zero");
+
+        public static readonly Error TooLong = new(
+            "TrailerDurationInMinutes.TooLong",
+            "TrailerDurationInMinutes is too long");
     }
 }
