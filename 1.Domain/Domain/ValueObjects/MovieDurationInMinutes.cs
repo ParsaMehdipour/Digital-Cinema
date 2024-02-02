@@ -17,6 +17,9 @@ public sealed class MovieDurationInMinutes : ValueObject
         if (value < 0)
             return Result.Failure<MovieDurationInMinutes>(DomainErrors.MovieDurationInMinutes.Negative);
 
+        if (value == 0)
+            return Result.Failure<MovieDurationInMinutes>(DomainErrors.MovieDurationInMinutes.Zero);
+
         if (value > MaxDuration)
             return Result.Failure<MovieDurationInMinutes>(DomainErrors.MovieDurationInMinutes.TooLong);
 

@@ -33,11 +33,30 @@ public class MovieCast : Entity
 
     public MovieCast Create(Guid id, Guid castId, Guid movieId, CastType castType) => new(id, castId, movieId, castType);
 
-    public void SetCastId(Guid castId) => CastId = castId;
+    public void SetCastId(Guid castId)
+    {
+        if (CastId.Equals(castId)) return;
 
-    public void SetMovieId(Guid movieId) => MovieId = movieId;
+        if (castId == Guid.Empty) return;
 
-    public void SetCastType(CastType castType) => CastType = castType;
+        CastId = castId;
+    }
+
+    public void SetMovieId(Guid movieId)
+    {
+        if (MovieId.Equals(movieId)) return;
+
+        if (movieId == Guid.Empty) return;
+
+        MovieId = movieId;
+    }
+
+    public void SetCastType(CastType castType)
+    {
+        if (CastType.Equals(castType)) return;
+
+        CastType = castType;
+    }
 
     #endregion
 }

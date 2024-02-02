@@ -14,12 +14,13 @@ public class Movie : AggregateRoot
     public MovieDurationInMinutes MovieDurationInMinutes { get; private set; } = null!;
     public DateTime ReleaseDate { get; private set; }
     public bool ShowOnSite { get; private set; }
+    public bool OnlineOnly { get; private set; }
 
     #endregion
 
     #region Ctor
 
-    private Movie(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite) : base(id)
+    private Movie(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly) : base(id)
     {
         SetTitle(title);
         SetScore(score);
@@ -27,6 +28,7 @@ public class Movie : AggregateRoot
         SetMovieDurationInMinutes(movieDurationInMinutes);
         SetReleaseDate(releaseDate);
         SetShowOnSite(showOnSite);
+        SetOnlineOnly(onlineOnly);
     }
 
     private Movie()
@@ -38,9 +40,9 @@ public class Movie : AggregateRoot
 
     #region Methods
 
-    public Movie Create(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite)
+    public Movie Create(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly)
     {
-        var movie = new Movie(id, title, score, plot, movieDurationInMinutes, releaseDate, showOnSite);
+        var movie = new Movie(id, title, score, plot, movieDurationInMinutes, releaseDate, showOnSite, onlineOnly);
 
         movie.RaiseDomainEvent(new MovieCreatedDomainEvent(this));
 
@@ -105,6 +107,16 @@ public class Movie : AggregateRoot
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         ShowOnSite = showOnSite;
+    }
+
+    public void SetOnlineOnly(bool onlineOnly)
+    {
+        if (OnlineOnly.Equals(onlineOnly)) return;
+
+        if (OnlineOnly != default && OnlineOnly.Equals(onlineOnly) is false)
+            RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
+
+        OnlineOnly = onlineOnly;
     }
 
     #endregion

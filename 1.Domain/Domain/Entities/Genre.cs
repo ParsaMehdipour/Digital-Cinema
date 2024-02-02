@@ -21,7 +21,12 @@ public class Genre : Entity
 
     public Genre Create(Guid id, Title title) => new(id, title);
 
-    public void SetTitle(Title title) => Title = title;
+    public void SetTitle(Title title)
+    {
+        if (Title.Equals(title)) return;
+
+        Title = title;
+    }
 
     #endregion
 }

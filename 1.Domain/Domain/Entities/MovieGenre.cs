@@ -31,6 +31,7 @@ public class MovieGenre : Entity
     public void SetGenreId(Guid genreId)
     {
         if (genreId == Guid.Empty) return;
+
         if (GenreId == genreId) return;
 
         GenreId = genreId;
@@ -39,6 +40,7 @@ public class MovieGenre : Entity
     public void SetMovieId(Guid movieId)
     {
         if (movieId == Guid.Empty) return;
+
         if (MovieId == movieId) return;
 
         MovieId = movieId;
