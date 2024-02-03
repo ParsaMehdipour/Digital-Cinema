@@ -17,4 +17,3 @@ public interface IQueryRepository<TEntity> where TEntity : Entity
     Task<bool> IsExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
     bool IsExists(Expression<Func<TEntity, bool>> predicate);
 }
-}
