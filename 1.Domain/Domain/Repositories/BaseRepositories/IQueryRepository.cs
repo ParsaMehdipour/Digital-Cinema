@@ -1,7 +1,7 @@
 ﻿using Domain.Primitives;
 using System.Linq.Expressions;
 
-namespace Domain.Repositories.BaseReposotries;
+namespace Domain.Repositories.BaseRepositories;
 public interface IQueryRepository<TEntity> where TEntity : Entity
 {
     IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> predicate);

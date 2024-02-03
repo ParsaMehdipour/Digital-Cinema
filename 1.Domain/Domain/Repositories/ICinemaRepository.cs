@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Domain.Repositories.BaseReposotries;
+using Domain.Repositories.BaseRepositories;
 
 namespace Domain.Repositories;
 public interface ICinemaRepository : IRepository<Cinema>

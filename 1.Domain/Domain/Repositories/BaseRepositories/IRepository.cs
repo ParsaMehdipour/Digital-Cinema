@@ -1,6 +1,6 @@
 ﻿using Domain.Primitives;
 
-namespace Domain.Repositories.BaseReposotries;
+namespace Domain.Repositories.BaseRepositories;
 public interface IRepository<TEntity> : IQueryRepository<TEntity> where TEntity : Entity
 {
     void Add(TEntity entity);
