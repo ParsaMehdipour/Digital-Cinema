@@ -1,4 +1,4 @@
-namespace CD.WebApi;
+namespace WebApi;
 
 public class WeatherForecast
 {
