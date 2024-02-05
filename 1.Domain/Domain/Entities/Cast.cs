@@ -69,7 +69,8 @@ public class Cast : Entity
 
     public void SetAge(Age? age = null)
     {
-        if (Age.Equals(age)) return;
+        if (Age is not null)
+            if (Age.Equals(age)) return;
 
         Age = age;
     }
