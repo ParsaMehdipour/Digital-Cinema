@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   webapi:
-    image: ${DOCKER_REGISTRY-}cdwebapi
+    image: ${DOCKER_REGISTRY-}webapi
     build:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
