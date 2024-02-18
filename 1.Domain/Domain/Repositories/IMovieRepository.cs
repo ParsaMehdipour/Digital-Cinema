@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Movies;
 using Domain.Repositories.BaseRepositories;
 
 namespace Domain.Repositories;

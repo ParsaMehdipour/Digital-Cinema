@@ -1,7 +1,7 @@
 ﻿using Domain.Primitives;
 using Domain.ValueObjects;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Genres;
 
 public class Genre : Entity
 {

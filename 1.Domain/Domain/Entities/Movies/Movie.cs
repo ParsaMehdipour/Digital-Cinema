@@ -2,7 +2,7 @@
 using Domain.Primitives;
 using Domain.ValueObjects;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Movies;
 
 public class Movie : AggregateRoot
 {

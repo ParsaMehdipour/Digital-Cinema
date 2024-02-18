@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DomainServices\" />
+    <Folder Include="DomainServices\Movie\" />
   </ItemGroup>
 
 </Project>
