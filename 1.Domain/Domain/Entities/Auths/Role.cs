@@ -1,7 +1,7 @@
 ﻿using Domain.Primitives;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities.Auth;
+namespace Domain.Entities.Auths;
 
 public class Role : IdentityUser<Guid>, IAuditableEntity
 {

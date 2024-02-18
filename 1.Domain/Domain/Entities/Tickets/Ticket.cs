@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using Domain.Primitives;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Tickets;
 public class Ticket : Entity
 {
     #region Fields

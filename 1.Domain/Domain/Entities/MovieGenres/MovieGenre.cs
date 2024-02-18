@@ -1,6 +1,6 @@
 ﻿using Domain.Primitives;
 
-namespace Domain.Entities;
+namespace Domain.Entities.MovieGenres;
 
 public class MovieGenre : Entity
 {

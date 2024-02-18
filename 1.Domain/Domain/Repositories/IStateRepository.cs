@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.States;
 using Domain.Repositories.BaseRepositories;
 
 namespace Domain.Repositories;
