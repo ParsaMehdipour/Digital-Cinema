@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Movies;
 
 namespace Domain.DomainEvents;
 
