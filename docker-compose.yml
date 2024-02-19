@@ -3,12 +3,13 @@ version: '3.4'
 services:
   webapi:
     image: ${DOCKER_REGISTRY-}webapi
+    container_name: webapi
     build:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
 
-  elasticsearch:
-    container_name: els
+  elasticSearch:
+    container_name: elasticSearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.16.1
     ports:
       - 9200:9200
@@ -29,20 +30,31 @@ services:
     ports:
       - 5601:5601
     depends_on:
-      - elasticsearch
+      - elasticSearch
     environment:
       - ELASTICSEARCH_URL=http://localhost:9200
     networks:
       - elastic
     mem_limit: 2g
 
-  db:
+  postgresDb:
     image: postgres
+    container_name: postgresDb
     restart: always
     environment:
       POSTGRES_PASSWORD: Digital_CinemaDb2978
     ports:
       - 5432:5432
+
+  mongoDb:
+    image: mongo
+    container_name: mongoDb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: DcMongoDb
+      MONGO_INITDB_ROOT_PASSWORD: DcMongoDbPass
+    ports:
+      - 0.0.0.0:8082:27017
 
 networks:
   elastic:
