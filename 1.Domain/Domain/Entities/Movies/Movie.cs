@@ -1,4 +1,4 @@
-﻿using Domain.DomainEvents;
+﻿using Domain.Entities.Movies.Events;
 using Domain.Primitives;
 using Domain.ValueObjects;
 
