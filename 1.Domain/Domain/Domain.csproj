@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="DomainServices\Movie\Services\" />
-    <Folder Include="Entities\Movies\Handlers\" />
   </ItemGroup>
 
 </Project>
