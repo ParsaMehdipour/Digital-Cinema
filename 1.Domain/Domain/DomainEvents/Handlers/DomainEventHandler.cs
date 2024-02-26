@@ -1,11 +1,29 @@
 ﻿using Domain.DomainEvents.Commands;
+using Domain.Repositories.DomainEvent;
 using MediatR;
+using Microsoft.Extensions.Logging;
+using SharedKernel.UserServices.Interfaces;
 
 namespace Domain.DomainEvents.Handlers;
-internal class DomainEventHandler : INotificationHandler<CreateDomainEventCommand>
+internal class DomainEventHandler(IDomainEventRepository domainEventRepository, ILogger<DomainEventHandler> logger, ICurrentUserService currentUserService)
+    : INotificationHandler<CreateDomainEventCommand>
 {
-    public Task Handle(CreateDomainEventCommand notification, CancellationToken cancellationToken)
+    public async Task Handle(CreateDomainEventCommand notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        logger.LogInformation("Handling domain event {state} ...", notification.State.ToString());
+
+        DomainEvent domainEvent = new()
+        {
+            TableName = notification.TableName,
+            TableRecordId = notification.TableRecordId,
+            Data = notification.Data,
+            State = notification.State,
+            UserId = currentUserService.UserId
+        };
+
+        await domainEventRepository.InsertOneAsync(domainEvent);
+
+        logger.LogInformation("Domain event handled {id}", domainEvent.Id);
+
     }
 }
