@@ -15,4 +15,8 @@
     <Folder Include="DomainServices\Movie\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\0.SharedKernel\SharedKernel\SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>
