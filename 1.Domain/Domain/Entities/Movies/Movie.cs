@@ -64,7 +64,7 @@ public class Movie : AggregateRoot
     {
         if (ImdbScore.Equals(imdbScore)) return;
 
-        if (ImdbScore != imdbScore && ImdbScore.Equals(imdbScore) is false)
+        if (ImdbScore != null && ImdbScore.Equals(imdbScore) is false)
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         ImdbScore = imdbScore;
