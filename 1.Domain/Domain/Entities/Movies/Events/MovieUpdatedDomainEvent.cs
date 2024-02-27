@@ -1,7 +1,12 @@
-﻿using Domain.DomainEvents.Commands;
+﻿using Domain.Primitives;
 
 namespace Domain.Entities.Movies.Events;
 
-internal sealed class MovieUpdatedDomainEvent(Movie movie) : CreateDomainEventCommand
+/// <summary>
+/// Event specific to updating a movie
+/// </summary>
+/// <param name="movie"></param>
+internal sealed class MovieUpdatedDomainEvent(Movie movie) : IDomainEvent
 {
+    public Movie Movie { get; set; } = movie;
 }
