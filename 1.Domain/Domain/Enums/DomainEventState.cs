@@ -1,4 +1,8 @@
 ﻿namespace Domain.Enums;
+
+/// <summary>
+/// Statuses related to a domain event
+/// </summary>
 public enum DomainEventState
 {
     Created = 1,
