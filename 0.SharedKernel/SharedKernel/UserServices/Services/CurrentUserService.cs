@@ -8,5 +8,5 @@ public class CurrentUserService(IHttpContextAccessor httpContextAccessor) : ICur
 {
     public Guid UserId => Guid.Parse(httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)!.Value ?? string.Empty);
 
-    public string UserIpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress.ToString() ?? string.Empty;
+    public string UserIpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString() ?? string.Empty;
 }
