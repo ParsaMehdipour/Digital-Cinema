@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SharedKernel.UserServices.Interfaces;
 using SharedKernel.UserServices.Services;
 using SharedKernel.ValidationBehaviours;
@@ -21,14 +23,12 @@ public static class DependencyInjection
     /// <param name="services"></param>
     internal static void Setup(this IServiceCollection services)
     {
+        services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-        var assembly = Assembly.GetExecutingAssembly();
-
-        services.AddMediatR(assembly);
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())).AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-
-        services.AddValidatorsFromAssembly(assembly);
     }
 }
