@@ -27,7 +27,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "5.WebApi\WebApi\W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0.SharedKernel", "0.SharedKernel", "{217FA7E2-2FA6-4459-B0F9-B69E13FBFF2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "0.SharedKernel\SharedKernel\SharedKernel.csproj", "{19EA6C21-F4FF-45F8-BE45-72ED4275355E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedKernel", "0.SharedKernel\SharedKernel\SharedKernel.csproj", "{19EA6C21-F4FF-45F8-BE45-72ED4275355E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20052150-15C9-45AB-A74A-47ACABB744F7}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
