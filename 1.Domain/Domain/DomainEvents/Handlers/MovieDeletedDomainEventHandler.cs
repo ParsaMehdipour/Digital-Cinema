@@ -13,9 +13,9 @@ namespace Domain.DomainEvents.Handlers;
 /// <param name="domainEventRepository"></param>
 /// <param name="logger"></param>
 /// <param name="currentUserService"></param>
-internal class MovieDeletedDomainEventHandler(IDomainEventRepository domainEventRepository, ILogger<MovieDeletedDomainEventHandler> logger, ICurrentUserService currentUserService) : INotificationHandler<MovieUpdatedDomainEvent>
+internal class MovieDeletedDomainEventHandler(IDomainEventRepository domainEventRepository, ILogger<MovieDeletedDomainEventHandler> logger, ICurrentUserService currentUserService) : INotificationHandler<MovieDeletedDomainEvent>
 {
-    public async Task Handle(MovieUpdatedDomainEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(MovieDeletedDomainEvent notification, CancellationToken cancellationToken)
     {
         logger.LogInformation("Handling domain event {state} ...", DomainEventState.Deleted.ToString());
 

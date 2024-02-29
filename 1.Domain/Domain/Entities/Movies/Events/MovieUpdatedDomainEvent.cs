@@ -8,5 +8,5 @@ namespace Domain.Entities.Movies.Events;
 /// <param name="movie"></param>
 internal sealed class MovieUpdatedDomainEvent(Movie movie) : IDomainEvent
 {
-    public Movie Movie { get; set; } = movie;
+    internal Movie Movie { get; set; } = movie;
 }
