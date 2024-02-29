@@ -7,6 +7,9 @@ services:
     build:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
+    environment:
+        DomainEventsConnectionString.ConnectionString: mongodb://localhost:8082
+        DomainEventsConnectionString.DatabaseName: DigitalCinemaMongo
 
   elasticSearch:
     container_name: elasticSearch

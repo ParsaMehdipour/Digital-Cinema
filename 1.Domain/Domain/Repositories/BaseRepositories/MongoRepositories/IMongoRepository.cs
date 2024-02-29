@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 namespace Domain.Repositories.BaseRepositories.MongoRepositories;
-public interface IMongoRepository<TEntity> where TEntity : Entity
+public interface IMongoRepository<TEntity> where TEntity : MongoEntity
 {
     IQueryable<TEntity> AsQueryable();
 
@@ -17,29 +17,29 @@ public interface IMongoRepository<TEntity> where TEntity : Entity
 
     Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filterExpression);
 
-    TEntity FindById(string id);
+    TEntity FindById(Guid id);
 
-    Task<TEntity> FindByIdAsync(string id);
+    Task<TEntity> FindByIdAsync(Guid id);
 
-    void InsertOne(TEntity document);
+    void InsertOne(TEntity entity);
 
-    Task InsertOneAsync(TEntity document);
+    Task InsertOneAsync(TEntity entity);
 
-    void InsertMany(ICollection<TEntity> documents);
+    void InsertMany(ICollection<TEntity> entities);
 
-    Task InsertManyAsync(ICollection<TEntity> documents);
+    Task InsertManyAsync(ICollection<TEntity> entities);
 
-    void ReplaceOne(TEntity document);
+    void ReplaceOne(TEntity entity);
 
-    Task ReplaceOneAsync(TEntity document);
+    Task ReplaceOneAsync(TEntity entity);
 
     void DeleteOne(Expression<Func<TEntity, bool>> filterExpression);
 
     Task DeleteOneAsync(Expression<Func<TEntity, bool>> filterExpression);
 
-    void DeleteById(string id);
+    void DeleteById(Guid id);
 
-    Task DeleteByIdAsync(string id);
+    Task DeleteByIdAsync(Guid id);
 
     void DeleteMany(Expression<Func<TEntity, bool>> filterExpression);
 
