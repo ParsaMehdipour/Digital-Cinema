@@ -4,6 +4,9 @@ services:
   webapi:
     image: ${DOCKER_REGISTRY-}webapi
     container_name: webapi
+    depends_on: 
+     - postgresDb
+     - mongoDb 
     build:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
