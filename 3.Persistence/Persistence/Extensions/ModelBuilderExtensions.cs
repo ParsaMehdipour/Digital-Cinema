@@ -8,7 +8,6 @@ public static class ModelBuilderExtensions
     /// Set NEWSEQUENTIALID() sql function for all columns named "Id"
     /// </summary>
     /// <param name="modelBuilder"></param>
-    /// <param name="mustBeIdentity">Set to true if you want only "Identity" guid fields that named "Id"</param>
     public static void AddSequentialGuidForIdConvention(this ModelBuilder modelBuilder)
     {
         modelBuilder.AddDefaultValueSqlConvention("Id", typeof(Guid), "NEWSEQUENTIALID()");
