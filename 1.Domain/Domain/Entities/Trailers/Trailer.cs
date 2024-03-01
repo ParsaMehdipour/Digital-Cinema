@@ -14,10 +14,26 @@ public class Trailer : Entity
 
     public string FilePath { get; private set; } = string.Empty;
 
+    public bool ShowOnSite { get; private set; }
+
+    #endregion
+
+    #region Ctor
+
+    private Trailer(Guid movieId, TrailerDurationInMinutes trailerDurationInMinutes, DateTime releaseDate, string filePath, bool showOnSite)
+    {
+        SetMovieId(movieId);
+        SetFilePath(filePath);
+        SetReleaseDate(releaseDate);
+        SetShowOnSite(showOnSite);
+        SetTrailerDurationInMinutes(trailerDurationInMinutes);
+    }
 
     #endregion
 
     #region Methods
+
+    public Trailer Create(Guid movieId, TrailerDurationInMinutes trailerDurationInMinutes, DateTime releaseDate, string filePath, bool showOnSite) => new(movieId, trailerDurationInMinutes, releaseDate, filePath, showOnSite)
 
     public void SetMovieId(Guid movieId)
     {
@@ -49,6 +65,13 @@ public class Trailer : Entity
         if (FilePath.Equals(filePath)) return;
 
         FilePath = filePath;
+    }
+
+    public void SetShowOnSite(bool showOnSite)
+    {
+        if (showOnSite.Equals(showOnSite)) return;
+
+        ShowOnSite = showOnSite;
     }
 
     #endregion
