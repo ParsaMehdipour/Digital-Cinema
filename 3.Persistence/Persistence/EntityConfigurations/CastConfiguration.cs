@@ -5,11 +5,16 @@ using Persistence.Constants;
 
 namespace Persistence.EntityConfigurations;
 
+/// <summary>
+/// Cast configurations
+/// </summary>
 public class CastConfiguration : IEntityTypeConfiguration<Cast>
 {
     public void Configure(EntityTypeBuilder<Cast> builder)
     {
         builder.ToTable(TableNames.Casts);
+
+        builder.HasKey(c => c.Id);
 
         builder.OwnsOne(c => c.FirstName);
 
@@ -20,8 +25,6 @@ public class CastConfiguration : IEntityTypeConfiguration<Cast>
         builder.Property(c => c.IsAlive).IsRequired();
 
         builder.Property(c => c.CastType).IsRequired();
-
-        builder.HasKey(c => c.Id);
 
         builder.HasQueryFilter(c => c.IsDeleted == false);
     }
