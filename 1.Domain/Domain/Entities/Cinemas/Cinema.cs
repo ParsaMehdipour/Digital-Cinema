@@ -14,7 +14,7 @@ public class Cinema : Entity
 
     public Address Address { get; private set; } = null!;
 
-    public DateTime OppeningHour { get; private set; }
+    public DateTime OpeningHour { get; private set; }
 
     public DateTime ClosingHour { get; private set; }
 
@@ -79,9 +79,9 @@ public class Cinema : Entity
 
     public void SetOppeningHour(DateTime oppeningHour)
     {
-        if (OppeningHour.Equals(oppeningHour)) return;
+        if (OpeningHour.Equals(oppeningHour)) return;
 
-        OppeningHour = oppeningHour;
+        OpeningHour = oppeningHour;
     }
 
     public void SetClosingHour(DateTime closingHour)
