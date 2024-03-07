@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Genres;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -16,7 +17,10 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
 
         builder.HasKey(g => g.Id);
 
-        builder.OwnsOne(g => g.Title);
+        builder
+            .Property(c => c.Title)
+            .HasConversion(x => x.Value, v => Title.Create(v).Value)
+            .HasMaxLength(Title.MaxLength);
 
         builder.HasQueryFilter(g => g.IsDeleted == false);
     }

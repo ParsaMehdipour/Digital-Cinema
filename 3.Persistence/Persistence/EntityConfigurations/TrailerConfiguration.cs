@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Trailers;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -15,8 +16,9 @@ public class TrailerConfiguration : IEntityTypeConfiguration<Trailer>
         builder.ToTable(TableNames.Trailers);
 
         builder.HasKey(t => t.Id);
-
-        builder.OwnsOne(t => t.TrailerDurationInMinutes);
+        builder
+            .Property(c => c.TrailerDurationInMinutes)
+            .HasConversion(x => x.Value, v => TrailerDurationInMinutes.Create(v).Value);
 
         builder.Property(t => t.MovieId).IsRequired();
 

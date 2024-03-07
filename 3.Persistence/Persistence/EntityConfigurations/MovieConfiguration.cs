@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Movies;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -16,13 +17,23 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 
         builder.HasKey(m => m.Id);
 
-        builder.OwnsOne(m => m.MovieDurationInMinutes);
+        builder
+            .Property(c => c.MovieDurationInMinutes)
+            .HasConversion(x => x.Value, v => MovieDurationInMinutes.Create(v).Value);
 
-        builder.OwnsOne(m => m.ImdbScore);
+        builder
+            .Property(c => c.ImdbScore)
+            .HasConversion(x => x.Value, v => Score.Create(v).Value);
 
-        builder.OwnsOne(m => m.Plot);
+        builder
+            .Property(c => c.Plot)
+            .HasConversion(x => x.Value, v => Plot.Create(v).Value)
+            .HasMaxLength(Plot.MaxLength);
 
-        builder.OwnsOne(m => m.Title);
+        builder
+            .Property(c => c.Title)
+            .HasConversion(x => x.Value, v => Title.Create(v).Value)
+            .HasMaxLength(Title.MaxLength);
 
         builder.Property(m => m.FilePath);
 

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Casts;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -16,9 +17,19 @@ public class CastConfiguration : IEntityTypeConfiguration<Cast>
 
         builder.HasKey(c => c.Id);
 
-        builder.OwnsOne(c => c.FirstName);
+        builder
+            .Property(c => c.FirstName)
+            .HasConversion(x => x.Value, v => FirstName.Create(v).Value)
+            .HasMaxLength(FirstName.MaxLength);
 
-        builder.OwnsOne(c => c.LastName);
+        builder
+            .Property(c => c.LastName)
+            .HasConversion(x => x.Value, v => LastName.Create(v).Value)
+            .HasMaxLength(LastName.MaxLength);
+
+        builder
+            .Property(c => c.Age)
+            .HasConversion(x => x.Value, v => Age.Create(v).Value);
 
         builder.Property(c => c.Gender).IsRequired();
 
