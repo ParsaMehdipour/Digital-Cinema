@@ -12,6 +12,7 @@ public class State : Entity
     #endregion
 
     #region Ctor
+    private State() { }
 
     private State(StateName stateName) => StateName = stateName;
 
@@ -23,7 +24,7 @@ public class State : Entity
 
     public void SetStateName(StateName stateName)
     {
-        if (StateName.Equals(stateName)) return;
+        if (StateName != null! && StateName.Equals(stateName)) return;
 
         StateName = stateName;
     }

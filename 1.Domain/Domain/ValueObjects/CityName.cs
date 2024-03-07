@@ -3,15 +3,16 @@ using Domain.Primitives;
 using Domain.Shared;
 
 namespace Domain.ValueObjects;
+
 public class CityName : ValueObject
 {
-    private const int MaxLength = 100;
+    public const int MaxLength = 100;
 
     private CityName(string value) => Value = value;
 
     public string Value { get; }
 
-    public Result<CityName> Create(string value)
+    public static Result<CityName> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
             return Result.Failure<CityName>(DomainErrors.CityName.Empty);
@@ -22,7 +23,7 @@ public class CityName : ValueObject
         return new CityName(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

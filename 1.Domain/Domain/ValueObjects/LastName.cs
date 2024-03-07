@@ -6,7 +6,7 @@ namespace Domain.ValueObjects;
 
 public sealed class LastName : ValueObject
 {
-    private const int MaxLength = 50;
+    public const int MaxLength = 50;
 
     private LastName(string value) => Value = value;
 
@@ -23,8 +23,9 @@ public sealed class LastName : ValueObject
         return new LastName(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
 }
+

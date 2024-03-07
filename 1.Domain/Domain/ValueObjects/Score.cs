@@ -23,7 +23,7 @@ public sealed class Score : ValueObject
         return new Score(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

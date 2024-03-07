@@ -24,13 +24,13 @@ public class Cinema : Entity
 
     private Cinema() { }
 
-    private Cinema(CinemaName cinemaName, Guid cityId, Guid stateId, Address address, DateTime oppeningHour, DateTime closingHour)
+    private Cinema(CinemaName cinemaName, Guid cityId, Guid stateId, Address address, DateTime openingHour, DateTime closingHour)
     {
         SetCinemaName(cinemaName);
         SetAddress(address);
         SetStateId(stateId);
         SetCityId(cityId);
-        SetOppeningHour(oppeningHour);
+        SetOpeningHour(openingHour);
         SetClosingHour(closingHour);
     }
 
@@ -47,14 +47,14 @@ public class Cinema : Entity
 
     public void SetCinemaName(CinemaName cinemaName)
     {
-        if (CinemaName.Equals(cinemaName)) return;
+        if (CinemaName != null! && CinemaName.Equals(cinemaName)) return;
 
         CinemaName = cinemaName;
     }
 
     public void SetAddress(Address address)
     {
-        if (Address.Equals(address)) return;
+        if (Address != null! && Address.Equals(address)) return;
 
         Address = address;
     }
@@ -77,11 +77,11 @@ public class Cinema : Entity
         StateId = stateId;
     }
 
-    public void SetOppeningHour(DateTime oppeningHour)
+    public void SetOpeningHour(DateTime openingHour)
     {
-        if (OpeningHour.Equals(oppeningHour)) return;
+        if (OpeningHour.Equals(openingHour)) return;
 
-        OpeningHour = oppeningHour;
+        OpeningHour = openingHour;
     }
 
     public void SetClosingHour(DateTime closingHour)

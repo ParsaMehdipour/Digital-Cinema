@@ -5,13 +5,13 @@ using Domain.Shared;
 namespace Domain.ValueObjects;
 public sealed class TrailerDurationInMinutes : ValueObject
 {
-    private const int MaxDuration = 5;
+    public const int MaxDuration = 5;
 
     private TrailerDurationInMinutes(int value) => Value = value;
 
     public int Value { get; }
 
-    public Result<TrailerDurationInMinutes> Create(int value)
+    public static Result<TrailerDurationInMinutes> Create(int value)
     {
         if (value < 0)
             return Result.Failure<TrailerDurationInMinutes>(DomainErrors.TrailerDurationInMinutes.Negative);
@@ -25,7 +25,7 @@ public sealed class TrailerDurationInMinutes : ValueObject
         return new TrailerDurationInMinutes(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

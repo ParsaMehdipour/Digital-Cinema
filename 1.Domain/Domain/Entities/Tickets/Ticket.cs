@@ -119,13 +119,13 @@ public class Ticket : Entity
         SeatNumber = seatNumber;
     }
 
-    public void SetReferenceNumber(string refereneNumber)
+    public void SetReferenceNumber(string referenceNumber)
     {
-        if (string.IsNullOrEmpty(refereneNumber)) return;
+        if (string.IsNullOrEmpty(referenceNumber)) return;
 
-        if (ReferenceNumber.Equals(refereneNumber)) return;
+        if (ReferenceNumber.Equals(referenceNumber)) return;
 
-        ReferenceNumber = refereneNumber;
+        ReferenceNumber = referenceNumber;
     }
 
     #endregion

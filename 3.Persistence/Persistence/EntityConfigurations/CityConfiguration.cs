@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Cities;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -16,7 +17,10 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.HasKey(c => c.Id);
 
-        builder.OwnsOne(c => c.CityName);
+        builder
+            .Property(c => c.CityName)
+            .HasConversion(x => x.Value, v => CityName.Create(v).Value)
+            .HasMaxLength(CityName.MaxLength);
 
         builder.HasQueryFilter(c => c.IsDeleted == false);
     }

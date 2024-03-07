@@ -11,8 +11,11 @@ services:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
     environment:
-        DomainEventsConnectionString.ConnectionString: mongodb://localhost:8082
+        DomainEventsConnectionString.ConnectionString: mongodb://mongoDb:8082
         DomainEventsConnectionString.DatabaseName: DigitalCinemaMongo
+        ApplicationConnectionString: Server=postgresDb;Database=DigitalCinema_Db;Port=5432;User Id=postgres;Password=Digital_CinemaDb2978
+    networks: 
+     - DigitalCinema
 
   elasticSearch:
     container_name: elasticSearch
@@ -51,6 +54,8 @@ services:
       POSTGRES_PASSWORD: Digital_CinemaDb2978
     ports:
       - 5432:5432
+    networks: 
+     - DigitalCinema
 
   mongoDb:
     image: mongo
@@ -61,8 +66,13 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: DcMongoDbPass
     ports:
       - 0.0.0.0:8082:27017
+    networks: 
+     - DigitalCinema
+  
 
 networks:
+  DigitalCinema: 
+   name: DigitalCinema
   elastic:
     driver: bridge
 

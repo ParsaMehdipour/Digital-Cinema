@@ -7,7 +7,7 @@ public class Cast : Entity
 {
     #region Ctor
 
-    private Cast(Guid id, FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null) : base(id)
+    private Cast(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null)
     {
         SetFirstName(firstName);
         SetLastName(lastName);
@@ -28,9 +28,9 @@ public class Cast : Entity
 
     #region Fields
 
-    public FirstName FirstName { get; private set; } = null!;
+    public FirstName FirstName { get; private set; }
 
-    public LastName LastName { get; private set; } = null!;
+    public LastName LastName { get; private set; }
 
     public bool IsAlive { get; private set; }
 
@@ -44,18 +44,18 @@ public class Cast : Entity
 
     #region Methods
 
-    public Cast Create(Guid id, FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null) => new(id, firstName, lastName, gender, castType, isAlive, age);
+    public static Cast Create(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null) => new(firstName, lastName, gender, castType, isAlive, age);
 
     public void SetFirstName(FirstName firstName)
     {
-        if (FirstName.Equals(firstName)) return;
+        if (FirstName == firstName) return;
 
         FirstName = firstName;
     }
 
     public void SetLastName(LastName lastName)
     {
-        if (LastName.Equals(lastName)) return;
+        if (LastName != null && LastName.Equals(lastName)) return;
 
         LastName = lastName;
     }

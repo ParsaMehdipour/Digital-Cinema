@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Cinemas;
+using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.Constants;
@@ -16,13 +17,19 @@ public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
 
         builder.HasKey(c => c.Id);
 
-        builder.OwnsOne(c => c.CinemaName);
+        builder
+            .Property(c => c.CinemaName)
+            .HasConversion(x => x.Value, v => CinemaName.Create(v).Value)
+            .HasMaxLength(CinemaName.MaxLength);
 
         builder.Property(c => c.CityId).IsRequired();
 
         builder.Property(c => c.StateId).IsRequired();
 
-        builder.OwnsOne(c => c.Address);
+        builder
+            .Property(c => c.Address)
+            .HasConversion(x => x.Value, v => Address.Create(v).Value)
+            .HasMaxLength(Address.MaxLength);
 
         builder.Property(c => c.OpeningHour).IsRequired();
 

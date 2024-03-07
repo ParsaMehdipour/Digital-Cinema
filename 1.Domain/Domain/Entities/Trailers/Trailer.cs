@@ -19,6 +19,7 @@ public class Trailer : Entity
     #endregion
 
     #region Ctor
+    private Trailer() { }
 
     private Trailer(Guid movieId, TrailerDurationInMinutes trailerDurationInMinutes, DateTime releaseDate, string filePath, bool showOnSite)
     {
@@ -33,7 +34,8 @@ public class Trailer : Entity
 
     #region Methods
 
-    public Trailer Create(Guid movieId, TrailerDurationInMinutes trailerDurationInMinutes, DateTime releaseDate, string filePath, bool showOnSite) => new(movieId, trailerDurationInMinutes, releaseDate, filePath, showOnSite)
+    public Trailer Create(Guid movieId, TrailerDurationInMinutes trailerDurationInMinutes, DateTime releaseDate,
+        string filePath, bool showOnSite) => new(movieId, trailerDurationInMinutes, releaseDate, filePath, showOnSite);
 
     public void SetMovieId(Guid movieId)
     {
@@ -46,7 +48,7 @@ public class Trailer : Entity
 
     public void SetTrailerDurationInMinutes(TrailerDurationInMinutes trailerDurationInMinutes)
     {
-        if (TrailerDurationInMinutes.Equals(trailerDurationInMinutes)) return;
+        if (TrailerDurationInMinutes != null! && TrailerDurationInMinutes.Equals(trailerDurationInMinutes)) return;
 
         TrailerDurationInMinutes = trailerDurationInMinutes;
     }

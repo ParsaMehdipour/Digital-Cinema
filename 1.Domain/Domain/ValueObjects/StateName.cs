@@ -5,13 +5,13 @@ using Domain.Shared;
 namespace Domain.ValueObjects;
 public class StateName : ValueObject
 {
-    private const int MaxLength = 100;
+    public const int MaxLength = 100;
 
     private StateName(string value) => Value = value;
 
     public string Value { get; }
 
-    public Result<StateName> Create(string value)
+    public static Result<StateName> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
             return Result.Failure<StateName>(DomainErrors.StateName.Empty);
@@ -21,8 +21,7 @@ public class StateName : ValueObject
 
         return new StateName(value);
     }
-
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

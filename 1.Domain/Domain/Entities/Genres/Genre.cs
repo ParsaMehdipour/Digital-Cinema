@@ -12,7 +12,7 @@ public class Genre : Entity
     #endregion
 
     #region Ctor
-
+    private Genre() { }
     private Genre(Guid id, Title title) : base(id) => SetTitle(title);
 
     #endregion
@@ -23,7 +23,7 @@ public class Genre : Entity
 
     public void SetTitle(Title title)
     {
-        if (Title.Equals(title)) return;
+        if (Title != null! && Title.Equals(title)) return;
 
         Title = title;
     }
