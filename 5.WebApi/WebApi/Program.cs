@@ -18,6 +18,8 @@ MongoDbDatabaseSettings mongoDbDatabaseSettings = new()
     DatabaseName = (Environment.GetEnvironmentVariable("DomainEventsConnectionString.DatabaseName") ?? configuration["DomainEventsConnectionString:DatabaseName"])!,
 };
 
+var postgresConnectionString = (Environment.GetEnvironmentVariable("ApplicationConnectionString") ?? configuration["ApplicationConnectionString"])!;
+
 #endregion
 
 #region Setup dependency injections
@@ -26,7 +28,7 @@ MongoDbDatabaseSettings mongoDbDatabaseSettings = new()
 services.AddSharedKernel();
 
 //Set persistence dependencies
-services.AddPersistence(mongoDbDatabaseSettings.ConnectionString, string.Empty);
+services.AddPersistence(mongoDbDatabaseSettings.ConnectionString, postgresConnectionString);
 
 #endregion
 
@@ -50,4 +52,26 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+SeedDatabase(app);
+
 app.Run();
+
+
+static void SeedDatabase(WebApplication app)
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        //                    context.Database.Migrate();
+        context.Database.EnsureCreated();
+        SeedData.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+    }
+}
