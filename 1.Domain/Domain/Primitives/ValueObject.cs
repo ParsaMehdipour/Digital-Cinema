@@ -1,27 +1,49 @@
 ﻿namespace Domain.Primitives;
 
-public abstract class ValueObject : IEquatable<ValueObject>
+public abstract class ValueObject
 {
-    public abstract IEnumerable<object> GetAtomicValues();
-
-    public bool Equals(ValueObject? other)
+    protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
-        return other is not null && ValuesAreEqual(other);
+        if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
+        {
+            return false;
+        }
+        return ReferenceEquals(left, right) || left.Equals(right);
     }
 
-    public override bool Equals(object? obj)
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
-        return obj is ValueObject other && ValuesAreEqual(other);
+        return !(EqualOperator(left, right));
+    }
+
+    protected abstract IEnumerable<object> GetEqualityComponents();
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || obj.GetType() != GetType())
+        {
+            return false;
+        }
+
+        var other = (ValueObject)obj;
+
+        return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
 
     public override int GetHashCode()
     {
-        return GetAtomicValues().Aggregate(default(int), HashCode.Combine);
+        return GetEqualityComponents()
+            .Select(x => x != null ? x.GetHashCode() : 0)
+            .Aggregate((x, y) => x ^ y);
+    }
+    public static bool operator ==(ValueObject one, ValueObject two)
+    {
+        return EqualOperator(one, two);
     }
 
-    private bool ValuesAreEqual(ValueObject other)
+    public static bool operator !=(ValueObject one, ValueObject two)
     {
-        return GetAtomicValues().SequenceEqual(other.GetAtomicValues());
+        return NotEqualOperator(one, two);
     }
 }
 

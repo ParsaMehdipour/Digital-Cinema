@@ -11,6 +11,7 @@ public class City : Entity
     #endregion
 
     #region Ctor
+    private City() { }
 
     private City(CityName cityName) => SetCityName(cityName);
 
@@ -22,7 +23,7 @@ public class City : Entity
 
     public void SetCityName(CityName cityName)
     {
-        if (CityName.Equals(cityName)) return;
+        if (CityName != null! && CityName.Equals(cityName)) return;
 
         CityName = cityName;
     }

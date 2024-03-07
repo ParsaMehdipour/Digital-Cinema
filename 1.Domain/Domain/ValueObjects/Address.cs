@@ -5,13 +5,13 @@ using Domain.Shared;
 namespace Domain.ValueObjects;
 public sealed class Address : ValueObject
 {
-    private const int MaxLength = 1000;
+    public const int MaxLength = 1000;
 
     private Address(string value) => Value = value;
 
     public string Value { get; }
 
-    public Result<Address> Create(string value)
+    public static Result<Address> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
             return Result.Failure<Address>(DomainErrors.Address.Empty);
@@ -22,7 +22,7 @@ public sealed class Address : ValueObject
         return new Address(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

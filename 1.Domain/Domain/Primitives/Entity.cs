@@ -9,7 +9,7 @@ public class Entity : IEquatable<Entity>, IAuditableEntity
 
 
     //AuditableEntity
-    public DateTime CreatedOnUtc { get; set; }
+    public DateTime CreatedOnUtc { get; set; } = DateTime.UtcNow;
     public DateTime? ModifiedOnUtc { get; set; }
     public bool IsDeleted { get; set; }
 

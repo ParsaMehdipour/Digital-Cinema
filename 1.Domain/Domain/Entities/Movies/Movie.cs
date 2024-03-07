@@ -21,7 +21,7 @@ public class Movie : AggregateRoot
 
     #region Ctor
 
-    private Movie(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly) : base(id)
+    private Movie(Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly)
     {
         SetTitle(title);
         SetScore(score);
@@ -41,9 +41,9 @@ public class Movie : AggregateRoot
 
     #region Methods
 
-    public Movie Create(Guid id, Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly)
+    public Movie Create(Title title, Score score, Plot plot, MovieDurationInMinutes movieDurationInMinutes, DateTime releaseDate, bool showOnSite, bool onlineOnly)
     {
-        var movie = new Movie(id, title, score, plot, movieDurationInMinutes, releaseDate, showOnSite, onlineOnly);
+        var movie = new Movie(title, score, plot, movieDurationInMinutes, releaseDate, showOnSite, onlineOnly);
 
         movie.RaiseDomainEvent(new MovieCreatedDomainEvent(this));
 
@@ -54,7 +54,7 @@ public class Movie : AggregateRoot
     {
         if (Title.Equals(title)) return;
 
-        if (Title != null && Title.Equals(title) is false)
+        if (Title != null! && Title.Equals(title) is false)
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         Title = title;
@@ -64,7 +64,7 @@ public class Movie : AggregateRoot
     {
         if (ImdbScore.Equals(imdbScore)) return;
 
-        if (ImdbScore != null && ImdbScore.Equals(imdbScore) is false)
+        if (ImdbScore != null! && ImdbScore.Equals(imdbScore) is false)
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         ImdbScore = imdbScore;
@@ -74,7 +74,7 @@ public class Movie : AggregateRoot
     {
         if (Plot.Equals(plot)) return;
 
-        if (Plot != null && Plot.Equals(plot) is false)
+        if (Plot != null! && Plot.Equals(plot) is false)
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         Plot = plot;
@@ -84,7 +84,7 @@ public class Movie : AggregateRoot
     {
         if (MovieDurationInMinutes.Equals(movieDurationInMinutes)) return;
 
-        if (MovieDurationInMinutes != null && MovieDurationInMinutes.Equals(movieDurationInMinutes) is false)
+        if (MovieDurationInMinutes != null! && MovieDurationInMinutes.Equals(movieDurationInMinutes) is false)
             RaiseDomainEvent(new MovieUpdatedDomainEvent(this));
 
         MovieDurationInMinutes = movieDurationInMinutes;

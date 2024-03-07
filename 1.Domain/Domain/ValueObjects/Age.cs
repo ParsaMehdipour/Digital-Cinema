@@ -27,7 +27,7 @@ public sealed class Age : ValueObject
         return new Age(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }

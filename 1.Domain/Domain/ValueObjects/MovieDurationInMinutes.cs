@@ -6,13 +6,13 @@ namespace Domain.ValueObjects;
 
 public sealed class MovieDurationInMinutes : ValueObject
 {
-    private const int MaxDuration = 5100;
+    public const int MaxDuration = 5100;
 
     private MovieDurationInMinutes(int value) => Value = value;
 
     public int Value { get; }
 
-    public Result<MovieDurationInMinutes> Create(int value)
+    public static Result<MovieDurationInMinutes> Create(int value)
     {
         if (value < 0)
             return Result.Failure<MovieDurationInMinutes>(DomainErrors.MovieDurationInMinutes.Negative);
@@ -26,7 +26,7 @@ public sealed class MovieDurationInMinutes : ValueObject
         return new MovieDurationInMinutes(value);
     }
 
-    public override IEnumerable<object> GetAtomicValues()
+    protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
