@@ -1,5 +1,6 @@
 ﻿using Domain.Repositories.BaseRepositories;
 using Domain.Repositories.BaseRepositories.MongoRepositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Persistence.Repositories;
@@ -14,18 +15,20 @@ public static class DependencyInjection
     /// </summary>
     /// <param name="services"></param>
     /// <param name="mongoConnectionString"></param>
-    /// <param name="sqlConnectionString"></param>
-    public static void AddPersistence(this IServiceCollection services, string mongoConnectionString, string sqlConnectionString) => services.Setup(mongoConnectionString, sqlConnectionString);
+    /// <param name="postgresConnectionString"></param>
+    public static void AddPersistence(this IServiceCollection services, string mongoConnectionString,
+        string postgresConnectionString) => services.Setup(mongoConnectionString, postgresConnectionString);
 
     /// <summary>
     /// Set's persistence's service dependency injections
     /// </summary>
     /// <param name="services"></param>
     /// <param name="mongoConnectionString"></param>
-    /// <param name="sqlConnectionString"></param>
-    public static void Setup(this IServiceCollection services, string mongoConnectionString, string sqlConnectionString)
+    /// <param name="postgresConnectionString"></param>
+    public static void Setup(this IServiceCollection services, string mongoConnectionString,
+        string postgresConnectionString)
     {
-        //Base repositories -> SQL
+        //Base repositories -> Postgres
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
 
@@ -34,5 +37,8 @@ public static class DependencyInjection
 
         //MongoDB
         services.AddSingleton<IMongoClient>(_ => new MongoClient(mongoConnectionString));
+
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(postgresConnectionString));
     }
 }
