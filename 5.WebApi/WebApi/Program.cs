@@ -1,11 +1,16 @@
+using NLog;
 using Persistence;
 using SharedKernel;
 using SharedKernel.DataProviderSettings.MongoDB;
+using SharedKernel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var nlogFile = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != null ? $"NLog.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.config" : "NLog.config";
 
+LogManager.LoadConfiguration(nlogFile);
+
+// Add services to the container.
 var services = builder.Services;
 var configuration = builder.Configuration;
 
@@ -61,9 +66,11 @@ static void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILoggerManager>();
 
     try
     {
+        logger.LogInfo("Initializing seed data ...");
         var context = services.GetRequiredService<ApplicationDbContext>();
         //                    context.Database.Migrate();
         context.Database.EnsureCreated();
@@ -71,7 +78,6 @@ static void SeedDatabase(WebApplication app)
     }
     catch (Exception ex)
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+        logger.LogError($"An error occurred seeding the DB. {ex.Message}");
     }
 }
