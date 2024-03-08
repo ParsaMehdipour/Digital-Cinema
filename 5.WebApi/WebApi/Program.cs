@@ -1,21 +1,18 @@
 using Application;
-using NLog;
 using Persistence;
+using Serilog;
 using SharedKernel;
 using SharedKernel.DataProviderSettings.MongoDB;
-using SharedKernel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var nlogFile = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != null ? $"NLog.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.config" : "NLog.config";
-
-LogManager.LoadConfiguration(nlogFile);
 
 // Add services to the container.
 var services = builder.Services;
 var configuration = builder.Configuration;
 
 #region Read data from environment variables or appsettings
+
+var seqUrl = (Environment.GetEnvironmentVariable("SeqUrl") ?? configuration["SeqUrl"])!;
 
 //Fetch mongo db settings from env or appsettings
 MongoDbDatabaseSettings mongoDbDatabaseSettings = new()
@@ -25,6 +22,20 @@ MongoDbDatabaseSettings mongoDbDatabaseSettings = new()
 };
 
 var postgresConnectionString = (Environment.GetEnvironmentVariable("ApplicationConnectionString") ?? configuration["ApplicationConnectionString"])!;
+
+#endregion
+
+#region Serilog
+
+// Enable SelfLog with a specified level (optional)
+Serilog.Debugging.SelfLog.Enable(msg => Console.WriteLine($"----------------------[Serilog Internal]------------------ {msg}"));
+
+builder.Host.UseSerilog((context, loggerConfig) =>
+{
+    loggerConfig.ReadFrom.Configuration(context.Configuration)
+        .WriteTo.Console()
+        .WriteTo.Seq(seqUrl);
+});
 
 #endregion
 
@@ -61,6 +72,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseSerilogRequestLogging();
+
 SeedDatabase(app);
 
 app.Run();
@@ -70,11 +83,11 @@ static void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
     var services = scope.ServiceProvider;
-    var logger = services.GetRequiredService<ILoggerManager>();
+    var logger = services.GetRequiredService<ILogger<Program>>();
 
     try
     {
-        logger.LogInfo("Initializing seed data ...");
+        logger.LogInformation("Initializing seed data ...");
         var context = services.GetRequiredService<ApplicationDbContext>();
         //                    context.Database.Migrate();
         context.Database.EnsureCreated();

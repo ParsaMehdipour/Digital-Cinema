@@ -4,7 +4,7 @@ using Domain.Repositories.UnitOfWork;
 using Domain.ValueObjects;
 using FluentResults;
 using MediatR;
-using SharedKernel.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Casts.Commands.CreateCast;
 
@@ -15,13 +15,13 @@ public class CreateCastCommandHandler : IRequestHandler<CreateCastCommand, Resul
 {
     private readonly ICastRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILoggerManager _loggerManager;
+    private readonly ILogger<CreateCastCommandHandler> _logger;
 
-    public CreateCastCommandHandler(ICastRepository repository, IUnitOfWork unitOfWork, ILoggerManager loggerManager)
+    public CreateCastCommandHandler(ICastRepository repository, IUnitOfWork unitOfWork, ILogger<CreateCastCommandHandler> logger)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
-        _loggerManager = loggerManager;
+        _logger = logger;
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class CreateCastCommandHandler : IRequestHandler<CreateCastCommand, Resul
     public async Task<Result<Guid>> Handle(CreateCastCommand request, CancellationToken cancellationToken)
     {
         //Log the operation
-        _loggerManager.LogInfo($"Inserting the cast into database with the fallowing information : {request.FirstName}, {request.LastName}, {request.Gender} ...");
+        _logger.LogWarning($"Inserting the cast into database with the fallowing information : {request.FirstName}, {request.LastName}, {request.Gender} ...");
 
         //Create first name value object
         var createFirstNameResult = FirstName.Create(request.FirstName);

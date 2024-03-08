@@ -15,6 +15,7 @@ services:
         DomainEventsConnectionString.ConnectionString: mongodb://mongoDb:8082
         DomainEventsConnectionString.DatabaseName: DigitalCinemaMongo
         ApplicationConnectionString: Server=postgresDb;Database=DigitalCinema_Db;Port=5432;User Id=postgres;Password=Digital_CinemaDb2978
+        SeqUrl: http://seq:5341
     networks: 
      - DigitalCinema
 
@@ -73,13 +74,15 @@ services:
   seq:
     image: datalust/seq:latest
     container_name: seq
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - 0.0.0.0:5341:80
     environment:
       ACCEPT_EULA: Y
     volumes:
       - ./seq-data:/data
+    networks:
+    - DigitalCinema
 
 networks:
   DigitalCinema: 
