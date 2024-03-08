@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SharedKernel.Logging;
 using SharedKernel.UserServices.Interfaces;
 using SharedKernel.UserServices.Services;
 using SharedKernel.ValidationBehaviours;
@@ -30,5 +31,8 @@ public static class DependencyInjection
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())).AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+
+        //Logger
+        services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
