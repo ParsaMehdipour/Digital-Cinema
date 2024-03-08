@@ -3,7 +3,7 @@ using Domain.Repositories.BaseRepositories;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Persistence.Repositories;
+namespace Persistence.Repositories.PostgressRepositories;
 
 public class QueryRepository<TEntity> : IQueryRepository<TEntity> where TEntity : Entity
 {
