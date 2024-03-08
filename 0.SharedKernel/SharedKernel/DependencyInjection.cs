@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using SharedKernel.Logging;
 using SharedKernel.UserServices.Interfaces;
 using SharedKernel.UserServices.Services;
 
@@ -23,8 +22,5 @@ public static class DependencyInjection
         services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
-
-        //Logger
-        services.AddSingleton<ILoggerManager, LoggerManager>();
     }
 }
