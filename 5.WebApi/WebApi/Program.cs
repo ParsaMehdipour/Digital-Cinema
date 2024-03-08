@@ -1,3 +1,4 @@
+using Application;
 using NLog;
 using Persistence;
 using SharedKernel;
@@ -34,6 +35,9 @@ services.AddSharedKernel();
 
 //Set persistence dependencies
 services.AddPersistence(mongoDbDatabaseSettings.ConnectionString, postgresConnectionString);
+
+//Set application dependencies
+services.AddApplication();
 
 #endregion
 
