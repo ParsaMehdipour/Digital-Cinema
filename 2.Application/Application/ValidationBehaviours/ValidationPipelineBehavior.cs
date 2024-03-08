@@ -2,8 +2,13 @@
 using FluentValidation;
 using MediatR;
 
-namespace SharedKernel.ValidationBehaviours;
+namespace Application.ValidationBehaviours;
 
+/// <summary>
+/// Validation behaviour pipeline
+/// </summary>
+/// <typeparam name="TRequest"></typeparam>
+/// <typeparam name="TResponse"></typeparam>
 public class ValidationPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull, IRequest<TResponse>
     where TResponse : ResultBase<TResponse>, new()

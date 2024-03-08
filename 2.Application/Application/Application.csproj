@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\1.Domain\Domain\Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Casts\Queries\" />
+  </ItemGroup>
+
 </Project>

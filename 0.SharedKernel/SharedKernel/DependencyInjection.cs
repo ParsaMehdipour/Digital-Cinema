@@ -1,13 +1,9 @@
-﻿using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SharedKernel.Logging;
 using SharedKernel.UserServices.Interfaces;
 using SharedKernel.UserServices.Services;
-using SharedKernel.ValidationBehaviours;
-using System.Reflection;
 
 namespace SharedKernel;
 public static class DependencyInjection
@@ -27,10 +23,6 @@ public static class DependencyInjection
         services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
-
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())).AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
         //Logger
         services.AddSingleton<ILoggerManager, LoggerManager>();
