@@ -7,6 +7,7 @@ services:
     depends_on: 
      - postgresDb
      - mongoDb 
+     - seq
     build:
       context: .
       dockerfile: ./5.WebApi/WebApi/Dockerfile
@@ -65,10 +66,20 @@ services:
       MONGO_INITDB_ROOT_USERNAME: DcMongoDb
       MONGO_INITDB_ROOT_PASSWORD: DcMongoDbPass
     ports:
-      - 0.0.0.0:8082:27017
+     - 0.0.0.0:8082:27017
     networks: 
      - DigitalCinema
   
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:5341:80
+    environment:
+      ACCEPT_EULA: Y
+    volumes:
+      - ./seq-data:/data
 
 networks:
   DigitalCinema: 
