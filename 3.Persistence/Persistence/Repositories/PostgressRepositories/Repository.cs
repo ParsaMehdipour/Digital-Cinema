@@ -2,7 +2,7 @@
 using Domain.Repositories.BaseRepositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Repositories;
+namespace Persistence.Repositories.PostgressRepositories;
 
 public class Repository<TEntity> : QueryRepository<TEntity>, IRepository<TEntity>
     where TEntity : Entity

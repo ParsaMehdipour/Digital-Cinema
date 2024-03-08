@@ -22,7 +22,7 @@ public static class DomainErrors
             "First name is empty");
 
         public static readonly Error TooLong = new(
-            "LastName.TooLong",
+            "FirstName.TooLong",
             "First name is too long");
     }
 

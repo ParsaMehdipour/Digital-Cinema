@@ -1,10 +1,14 @@
-﻿using Domain.Repositories.BaseRepositories;
+﻿using Domain.Repositories;
+using Domain.Repositories.BaseRepositories;
 using Domain.Repositories.BaseRepositories.MongoRepositories;
+using Domain.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Persistence.Repositories;
 using Persistence.Repositories.MongoRepositories;
+using Persistence.Repositories.PostgressRepositories;
+using Persistence.Repositories.UnitOFWork;
 
 namespace Persistence;
 
@@ -31,6 +35,13 @@ public static class DependencyInjection
         //Base repositories -> Postgres
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped(typeof(IQueryRepository<>), typeof(QueryRepository<>));
+
+        //Application repositories
+        services.AddScoped(typeof(ICastRepository), typeof(CastRepository));
+
+
+        //Unit of work
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
 
         //Base repositories -> MongoDB
         services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
