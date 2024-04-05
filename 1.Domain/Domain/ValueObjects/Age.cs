@@ -6,8 +6,8 @@ namespace Domain.ValueObjects;
 
 public sealed class Age : ValueObject
 {
-    private const int MinNumber = 0;
-    private const int MaxNumber = 120;
+    public const int MinNumber = 0;
+    public const int MaxNumber = 120;
 
     private Age(int value) => Value = value;
 
