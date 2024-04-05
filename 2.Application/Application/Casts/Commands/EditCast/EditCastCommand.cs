@@ -2,12 +2,13 @@
 using FluentResults;
 using MediatR;
 
-namespace Application.Casts.Commands.CreateCast;
+namespace Application.Casts.Commands.EditCast;
 
-public record CreateCastCommand(
+public record EditCastCommand(
+    Guid Id,
     string FirstName,
     string LastName,
     CastType CastType,
     Gender Gender,
     bool IsAlive,
-    int? Age) : IRequest<Result<Guid>>;
+    int? Age) : IRequest<Result>;

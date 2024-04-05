@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Movies\Commands\" />
-    <Folder Include="Movies\Queries\" />
+    <Folder Include="Casts\Queries\" />
+    <Folder Include="Movies\NewFolder\" />
   </ItemGroup>
 
 </Project>

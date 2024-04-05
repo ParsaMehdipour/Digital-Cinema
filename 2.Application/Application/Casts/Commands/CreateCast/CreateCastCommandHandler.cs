@@ -36,7 +36,7 @@ public class CreateCastCommandHandler : IRequestHandler<CreateCastCommand, Resul
     public async Task<Result<Guid>> Handle(CreateCastCommand request, CancellationToken cancellationToken)
     {
         //Log the operation
-        _logger.LogWarning($"Inserting the cast into database with the fallowing information : {request.FirstName}, {request.LastName}, {request.Gender} ...");
+        _logger.LogInformation($"Inserting the cast into database with the fallowing information : {request.FirstName}, {request.LastName}, {request.Gender} ...");
 
         //Create first name value object
         var createFirstNameResult = FirstName.Create(request.FirstName);
