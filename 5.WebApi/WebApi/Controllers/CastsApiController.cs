@@ -14,6 +14,10 @@ namespace WebApi.Controllers;
 /// </summary>
 public class CastsApiController : ApiControllerBase
 {
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="mediator"></param>
     public CastsApiController(IMediator mediator) : base(mediator)
     {
     }
@@ -41,7 +45,7 @@ public class CastsApiController : ApiControllerBase
     /// </summary>
     /// <param name="request">Request</param>
     /// <returns></returns>
-    [HttpPost("Edit")]
+    [HttpPut("Edit")]
     [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Edit(EditCastCommand request)

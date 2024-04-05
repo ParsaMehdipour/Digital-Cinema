@@ -38,7 +38,8 @@ public class EditCastCommandHandler : IRequestHandler<EditCastCommand, Result>
         Cast cast = await _repository.GetByIdAsync(cancellationToken, request.Id);
 
         //If the cast was not found
-        ArgumentNullException.ThrowIfNull(cast, nameof(cast));
+        if (cast is null)
+            throw new KeyNotFoundException($"Fetch failed: Cast with the Id of {request.Id} is not found");
 
         //Log the operation
         _logger.LogInformation($"Initializing cast edition with the id of {cast.Id}");

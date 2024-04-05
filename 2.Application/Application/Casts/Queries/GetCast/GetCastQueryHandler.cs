@@ -41,8 +41,10 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<CastDto>
         //Fetch the cast
         Cast cast = await _repository.GetByIdAsync(cancellationToken, request.Id);
 
-        //If the cast was not found
-        ArgumentNullException.ThrowIfNull(cast, nameof(cast));
+
+        //Throw an exception if the cast is not found
+        if (cast is null)
+            throw new KeyNotFoundException($"Fetch failed: Cast with the Id of {request.Id} is not found");
 
         //Map the cast model
         CastDto castDto = _mapper.Map<CastDto>(cast);
