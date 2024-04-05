@@ -1,4 +1,5 @@
-﻿using Application.ValidationBehaviours;
+﻿using Application.MapperConfiguration;
+using Application.ValidationBehaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,10 @@ public static class DependencyInjection
         //Base repositories -> Postgres
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())).AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        //Validation pipeline behavior
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+
+        //AutoMapper
+        services.AddAutoMapper(typeof(AutoMapperProfile));
     }
 }
