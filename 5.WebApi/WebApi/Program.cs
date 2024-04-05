@@ -4,6 +4,7 @@ using Serilog;
 using SharedKernel;
 using SharedKernel.DataProviderSettings.MongoDB;
 using System.Reflection;
+using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,9 @@ services.AddApplication();
 
 #endregion
 
+services.AddExceptionHandler<GlobalExceptionHandler>();
+services.AddProblemDetails();
+
 services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
@@ -82,9 +86,13 @@ app.UseSerilogRequestLogging();
 
 SeedDatabase(app);
 
+//Customer exception handler
+app.UseExceptionHandler();
+
 app.Run();
 
 
+//Seed data operations
 static void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
