@@ -1,10 +1,11 @@
 ﻿using Application.Casts.Commands.CreateCast;
 using Application.Casts.Commands.EditCast;
 using Application.Casts.Queries.GetCast;
-using Application.Movies.DataTransferObjects;
+using Application.Casts.Queries.GetCasts;
 using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Pagination;
 using WebApi.Controllers.ControllerBase;
 
 namespace WebApi.Controllers;
@@ -59,12 +60,26 @@ public class CastsApiController : ApiControllerBase
     }
 
     /// <summary>
+    /// Api endpoint to get cast with pagination
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
+    [HttpGet("GetAll")]
+    [ProducesResponseType(typeof(Result<PagedResult<GetCastCastDto>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll([FromQuery] GetCastsQuery query)
+    {
+        var result = await Mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Api endpoint to get a cast by identifier
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("GetById/{id}")]
-    [ProducesResponseType(typeof(Result<CastDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<GetCastCastDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetById(Guid id)
     {
