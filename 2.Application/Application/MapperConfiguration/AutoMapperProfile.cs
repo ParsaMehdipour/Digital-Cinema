@@ -1,4 +1,4 @@
-﻿using Application.Movies.DataTransferObjects;
+﻿using Application.Casts.Queries.GetCast;
 using AutoMapper;
 using Domain.Entities.Casts;
 
@@ -11,7 +11,7 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<Cast, CastDto>().ForMember(dest => dest.Age,
+        CreateMap<Cast, GetCastCastDto>().ForMember(dest => dest.Age,
                 opt => opt.MapFrom(src => src.Age.Value))
             .ForMember(dest => dest.FirstName,
                 opt => opt.MapFrom(src => src.FirstName.Value))
