@@ -8,6 +8,11 @@ public class CityName : ValueObject
 {
     public const int MaxLength = 100;
 
+    private CityName()
+    {
+
+    }
+
     private CityName(string value) => Value = value;
 
     public string Value { get; }

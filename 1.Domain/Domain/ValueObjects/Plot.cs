@@ -8,6 +8,11 @@ public sealed class Plot : ValueObject
 {
     public const int MaxLength = 250;
 
+    private Plot()
+    {
+
+    }
+
     private Plot(string value) => Value = value;
 
     public string Value { get; }

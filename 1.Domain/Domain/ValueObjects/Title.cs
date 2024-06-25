@@ -7,6 +7,11 @@ public sealed class Title : ValueObject
 {
     public const int MaxLength = 100;
 
+    private Title()
+    {
+        
+    }
+
     private Title(string value) => Value = value;
 
     public string Value { get; }

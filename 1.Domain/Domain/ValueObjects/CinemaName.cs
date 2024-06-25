@@ -7,6 +7,11 @@ public sealed class CinemaName : ValueObject
 {
     public const int MaxLength = 200;
 
+    private CinemaName()
+    {
+
+    }
+
     private CinemaName(string value) => Value = value;
 
     public string Value { get; }

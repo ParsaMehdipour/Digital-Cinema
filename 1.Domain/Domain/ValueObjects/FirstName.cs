@@ -8,6 +8,11 @@ public sealed class FirstName : ValueObject
 {
     public const int MaxLength = 50;
 
+    private FirstName()
+    {
+
+    }
+
     private FirstName(string value) => Value = value;
 
     public string Value { get; }

@@ -7,6 +7,11 @@ public class StateName : ValueObject
 {
     public const int MaxLength = 100;
 
+    private StateName()
+    {
+
+    }
+
     private StateName(string value) => Value = value;
 
     public string Value { get; }
