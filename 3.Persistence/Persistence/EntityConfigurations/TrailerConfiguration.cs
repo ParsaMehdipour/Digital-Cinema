@@ -16,9 +16,11 @@ public class TrailerConfiguration : IEntityTypeConfiguration<Trailer>
         builder.ToTable(TableNames.Trailers);
 
         builder.HasKey(t => t.Id);
-        builder
-            .Property(c => c.TrailerDurationInMinutes)
-            .HasConversion(x => x.Value, v => TrailerDurationInMinutes.Create(v).Value);
+
+        builder.ComplexProperty(t => t.TrailerDurationInMinutes, tdim =>
+        {
+            tdim.Property(p => p.Value).HasColumnName("TrailerDurationInMinutes").IsRequired();
+        });
 
         builder.Property(t => t.MovieId).IsRequired();
 

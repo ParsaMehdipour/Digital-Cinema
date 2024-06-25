@@ -17,10 +17,10 @@ public class GenreConfiguration : IEntityTypeConfiguration<Genre>
 
         builder.HasKey(g => g.Id);
 
-        builder
-            .Property(c => c.Title)
-            .HasConversion(x => x.Value, v => Title.Create(v).Value)
-            .HasMaxLength(Title.MaxLength);
+        builder.ComplexProperty(g => g.Title, t =>
+        {
+            t.Property(p => p.Value).HasColumnName("Title").IsRequired();
+        });
 
         builder.HasQueryFilter(g => g.IsDeleted == false);
     }

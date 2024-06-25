@@ -8,6 +8,11 @@ public sealed class MovieDurationInMinutes : ValueObject
 {
     public const int MaxDuration = 5100;
 
+    private MovieDurationInMinutes()
+    {
+
+    }
+
     private MovieDurationInMinutes(int value) => Value = value;
 
     public int Value { get; }

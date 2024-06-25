@@ -9,6 +9,11 @@ public sealed class Age : ValueObject
     public const int MinNumber = 0;
     public const int MaxNumber = 120;
 
+    private Age()
+    {
+
+    }
+
     private Age(int value) => Value = value;
 
     public int Value { get; }

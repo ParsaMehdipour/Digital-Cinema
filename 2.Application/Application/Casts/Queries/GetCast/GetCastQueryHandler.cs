@@ -1,5 +1,4 @@
-﻿using Application.Movies.DataTransferObjects;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Entities.Casts;
 using Domain.Repositories;
 using FluentResults;
@@ -11,7 +10,7 @@ namespace Application.Casts.Queries.GetCast;
 /// <summary>
 /// Represents a get cast query handler
 /// </summary>
-public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<CastDto>>
+public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastCastDto>>
 {
     private readonly ICastRepository _repository;
     private readonly IMapper _mapper;
@@ -33,7 +32,7 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<CastDto>
     /// Returns an async result
     /// The Result contains a cast dto
     /// </returns>
-    public async Task<Result<CastDto>> Handle(GetCastQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetCastCastDto>> Handle(GetCastQuery request, CancellationToken cancellationToken)
     {
         //Log the operation
         _logger.LogInformation($"Initializing fetch : cast with the id of {request.Id}");
@@ -41,13 +40,12 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<CastDto>
         //Fetch the cast
         Cast cast = await _repository.GetByIdAsync(cancellationToken, request.Id);
 
-
         //Throw an exception if the cast is not found
         if (cast is null)
             throw new KeyNotFoundException($"Fetch failed: Cast with the Id of {request.Id} is not found");
 
         //Map the cast model
-        CastDto castDto = _mapper.Map<CastDto>(cast);
+        GetCastCastDto castDto = _mapper.Map<GetCastCastDto>(cast);
 
         return Result.Ok(castDto);
     }

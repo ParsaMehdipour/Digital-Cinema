@@ -17,19 +17,20 @@ public class CastConfiguration : IEntityTypeConfiguration<Cast>
 
         builder.HasKey(c => c.Id);
 
-        builder
-            .Property(c => c.FirstName)
-            .HasConversion(x => x.Value, v => FirstName.Create(v).Value)
-            .HasMaxLength(FirstName.MaxLength);
+        builder.ComplexProperty(c => c.FirstName, fn =>
+        {
+            fn.Property(p => p.Value).HasColumnName("FirstName").IsRequired();
+        });
 
-        builder
-            .Property(c => c.LastName)
-            .HasConversion(x => x.Value, v => LastName.Create(v).Value)
-            .HasMaxLength(LastName.MaxLength);
+        builder.ComplexProperty(c => c.LastName, ln =>
+        {
+            ln.Property(p => p.Value).HasColumnName("LastName").IsRequired();
+        });
 
-        builder
-            .Property(c => c.Age)
-            .HasConversion(x => x.Value, v => Age.Create(v).Value);
+        builder.ComplexProperty(c => c.Age, a =>
+        {
+            a.Property(p => p.Value).HasColumnName("Age").IsRequired();
+        });
 
         builder.Property(c => c.Gender).IsRequired();
 

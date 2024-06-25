@@ -8,6 +8,11 @@ public sealed class Score : ValueObject
 {
     private const int MaxNumber = 10;
 
+    private Score()
+    {
+
+    }
+
     private Score(int value) => Value = value;
 
     public int Value { get; }

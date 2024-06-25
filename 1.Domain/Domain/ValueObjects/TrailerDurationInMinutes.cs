@@ -7,6 +7,11 @@ public sealed class TrailerDurationInMinutes : ValueObject
 {
     public const int MaxDuration = 5;
 
+    private TrailerDurationInMinutes()
+    {
+
+    }
+
     private TrailerDurationInMinutes(int value) => Value = value;
 
     public int Value { get; }

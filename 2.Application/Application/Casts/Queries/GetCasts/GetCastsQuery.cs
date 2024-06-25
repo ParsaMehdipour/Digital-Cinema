@@ -1,8 +1,17 @@
-﻿using Application.Movies.DataTransferObjects;
+﻿using Application.Casts.Queries.GetCasts.Criteria;
+using FluentResults;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Pagination;
 
 namespace Application.Casts.Queries.GetCasts;
 
-public class GetCastsQuery : IRequest<IList<CastDto>>
+public record GetCastsQuery(CastsQueryStringParameters Parameters) : IRequest<Result<PagedResult<GetCastCastsDto>>>;
+
+public record GetCastCastsDto
 {
+    public Guid Id { get; set; }
+    public string FirstName { get; set; } = string.Empty;
+    public string LastName { get; set; } = string.Empty;
+    public int? Age { get; set; }
+    public bool IsAlive { get; set; }
 }

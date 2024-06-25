@@ -7,16 +7,14 @@ public class Cast : Entity
 {
     #region Ctor
 
-    private Cast(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null)
+    private Cast(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age age)
     {
         SetFirstName(firstName);
         SetLastName(lastName);
         SetGender(gender);
         SetCastType(castType);
         SetIsAlive(isAlive);
-
-        if (isAlive)
-            SetAge(age);
+        SetAge(age);
     }
 
     private Cast()
@@ -34,7 +32,7 @@ public class Cast : Entity
 
     public bool IsAlive { get; private set; }
 
-    public Age? Age { get; private set; }
+    public Age Age { get; private set; }
 
     public Gender Gender { get; private set; }
 
@@ -44,7 +42,7 @@ public class Cast : Entity
 
     #region Methods
 
-    public static Cast Create(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age? age = null) => new(firstName, lastName, gender, castType, isAlive, age);
+    public static Cast Create(FirstName firstName, LastName lastName, Gender gender, CastType castType, bool isAlive, Age age) => new(firstName, lastName, gender, castType, isAlive, age);
 
     public void SetFirstName(FirstName firstName)
     {
@@ -67,10 +65,9 @@ public class Cast : Entity
         IsAlive = isAlive;
     }
 
-    public void SetAge(Age? age = null)
+    public void SetAge(Age age)
     {
-        if (Age is not null)
-            if (Age.Equals(age)) return;
+        if (Age != null && Age.Equals(age)) return;
 
         Age = age;
     }

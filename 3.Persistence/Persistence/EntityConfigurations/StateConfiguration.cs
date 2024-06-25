@@ -14,10 +14,10 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
 
         builder.HasKey(s => s.Id);
 
-        builder
-            .Property(c => c.StateName)
-            .HasConversion(x => x.Value, v => StateName.Create(v).Value)
-            .HasMaxLength(StateName.MaxLength);
+        builder.ComplexProperty(s => s.StateName, sn =>
+        {
+            sn.Property(p => p.Value).HasColumnName("StateName").IsRequired();
+        });
 
         builder.HasQueryFilter(s => s.IsDeleted == false);
     }
