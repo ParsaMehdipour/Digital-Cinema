@@ -17,23 +17,25 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 
         builder.HasKey(m => m.Id);
 
-        builder
-            .Property(c => c.MovieDurationInMinutes)
-            .HasConversion(x => x.Value, v => MovieDurationInMinutes.Create(v).Value);
+        builder.ComplexProperty(m => m.MovieDurationInMinutes, mdim =>
+        {
+            mdim.Property(p => p.Value).HasColumnName("MovieDurationInMinutes").IsRequired();
+        });
 
-        builder
-            .Property(c => c.ImdbScore)
-            .HasConversion(x => x.Value, v => Score.Create(v).Value);
+        builder.ComplexProperty(m => m.ImdbScore, ims =>
+        {
+            ims.Property(p => p.Value).HasColumnName("ImdbScore").IsRequired();
+        });
 
-        builder
-            .Property(c => c.Plot)
-            .HasConversion(x => x.Value, v => Plot.Create(v).Value)
-            .HasMaxLength(Plot.MaxLength);
+        builder.ComplexProperty(m => m.Plot, pl =>
+        {
+            pl.Property(p => p.Value).HasColumnName("Plot").IsRequired();
+        });
 
-        builder
-            .Property(c => c.Title)
-            .HasConversion(x => x.Value, v => Title.Create(v).Value)
-            .HasMaxLength(Title.MaxLength);
+        builder.ComplexProperty(m => m.Title, t =>
+        {
+            t.Property(p => p.Value).HasColumnName("Title").IsRequired();
+        });
 
         builder.Property(m => m.FilePath);
 

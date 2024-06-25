@@ -17,19 +17,19 @@ public class CinemaConfiguration : IEntityTypeConfiguration<Cinema>
 
         builder.HasKey(c => c.Id);
 
-        builder
-            .Property(c => c.CinemaName)
-            .HasConversion(x => x.Value, v => CinemaName.Create(v).Value)
-            .HasMaxLength(CinemaName.MaxLength);
+        builder.ComplexProperty(c => c.CinemaName, cn =>
+        {
+            cn.Property(p => p.Value).HasColumnName("CinemaName").IsRequired();
+        });
 
         builder.Property(c => c.CityId).IsRequired();
 
         builder.Property(c => c.StateId).IsRequired();
 
-        builder
-            .Property(c => c.Address)
-            .HasConversion(x => x.Value, v => Address.Create(v).Value)
-            .HasMaxLength(Address.MaxLength);
+        builder.ComplexProperty(c => c.Address, a =>
+        {
+            a.Property(p => p.Value).HasColumnName("Address").IsRequired();
+        });
 
         builder.Property(c => c.OpeningHour).IsRequired();
 

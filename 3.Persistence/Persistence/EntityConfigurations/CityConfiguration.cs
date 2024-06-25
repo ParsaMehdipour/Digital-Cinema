@@ -17,10 +17,10 @@ public class CityConfiguration : IEntityTypeConfiguration<City>
 
         builder.HasKey(c => c.Id);
 
-        builder
-            .Property(c => c.CityName)
-            .HasConversion(x => x.Value, v => CityName.Create(v).Value)
-            .HasMaxLength(CityName.MaxLength);
+        builder.ComplexProperty(c => c.CityName, cn =>
+        {
+            cn.Property(p => p.Value).HasColumnName("CityName").IsRequired();
+        });
 
         builder.HasQueryFilter(c => c.IsDeleted == false);
     }
