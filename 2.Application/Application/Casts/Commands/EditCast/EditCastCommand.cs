@@ -4,6 +4,9 @@ using MediatR;
 
 namespace Application.Casts.Commands.EditCast;
 
+/// <summary>
+/// Represents the edit cast command
+/// </summary>
 public record EditCastCommand(
     Guid Id,
     string FirstName,
@@ -11,4 +14,4 @@ public record EditCastCommand(
     CastType CastType,
     Gender Gender,
     bool IsAlive,
-    int? Age) : IRequest<Result>;
+    int Age) : IRequest<Result>;

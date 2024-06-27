@@ -54,12 +54,12 @@ public class Entity : IEquatable<Entity>, IAuditableEntity
         return entity.Id == Id;
     }
 
-    protected void Delete()
+    public void Delete()
     {
         IsDeleted = true;
     }
 
-    protected void Restore()
+    public void Restore()
     {
         IsDeleted = false;
     }

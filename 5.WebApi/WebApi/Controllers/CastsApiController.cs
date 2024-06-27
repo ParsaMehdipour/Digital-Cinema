@@ -1,4 +1,5 @@
 ﻿using Application.Casts.Commands.CreateCast;
+using Application.Casts.Commands.DeleteRestoreCast;
 using Application.Casts.Commands.EditCast;
 using Application.Casts.Queries.GetCast;
 using Application.Casts.Queries.GetCasts;
@@ -21,6 +22,38 @@ public class CastsApiController : ApiControllerBase
     /// <param name="mediator"></param>
     public CastsApiController(IMediator mediator) : base(mediator)
     {
+    }
+
+    /// <summary>
+    /// Api endpoint to get cast with pagination
+    /// </summary>
+    /// <param name="query"></param>
+    /// <returns></returns>
+    [HttpGet("GetAll")]
+    [ProducesResponseType(typeof(Result<PagedResult<GetCastCastDto>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll([FromQuery] GetCastsQuery query)
+    {
+        var result = await Mediator.Send(query);
+
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Api endpoint to get a cast by identifier
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("GetById/{id}")]
+    [ProducesResponseType(typeof(Result<GetCastCastDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetById(Guid id)
+    {
+        var result = await Mediator.Send(new GetCastQuery(Id: id), CancellationToken.None);
+
+        if (result.IsSuccess is false)
+            return BadRequest(result.Errors);
+
+        return Ok(result);
     }
 
     /// <summary>
@@ -60,30 +93,34 @@ public class CastsApiController : ApiControllerBase
     }
 
     /// <summary>
-    /// Api endpoint to get cast with pagination
+    /// Api endpoint to delete a cast
     /// </summary>
-    /// <param name="query"></param>
+    /// <param name="id">Identifier</param>
     /// <returns></returns>
-    [HttpGet("GetAll")]
-    [ProducesResponseType(typeof(Result<PagedResult<GetCastCastDto>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromQuery] GetCastsQuery query)
+    [HttpPut("Delete")]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await Mediator.Send(query);
+        var result = await Mediator.Send(new DeleteRestoreCastCommand(id, true), CancellationToken.None);
+
+        if (result.IsSuccess is false)
+            return BadRequest(result.Errors);
 
         return Ok(result);
     }
 
     /// <summary>
-    /// Api endpoint to get a cast by identifier
+    /// Api endpoint to restore a cast
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="id">Identifier</param>
     /// <returns></returns>
-    [HttpGet("GetById/{id}")]
-    [ProducesResponseType(typeof(Result<GetCastCastDto>), StatusCodes.Status200OK)]
+    [HttpPut("Restore")]
+    [ProducesResponseType(typeof(Result), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Result), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> Restore(Guid id)
     {
-        var result = await Mediator.Send(new GetCastQuery(Id: id), CancellationToken.None);
+        var result = await Mediator.Send(new DeleteRestoreCastCommand(id, false), CancellationToken.None);
 
         if (result.IsSuccess is false)
             return BadRequest(result.Errors);
