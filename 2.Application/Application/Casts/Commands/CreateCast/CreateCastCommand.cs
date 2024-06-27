@@ -10,4 +10,4 @@ public record CreateCastCommand(
     CastType CastType,
     Gender Gender,
     bool IsAlive,
-    int? Age) : IRequest<Result<Guid>>;
+    int Age) : IRequest<Result<Guid>>;

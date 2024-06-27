@@ -11,4 +11,4 @@ public record EditCastCommand(
     CastType CastType,
     Gender Gender,
     bool IsAlive,
-    int? Age) : IRequest<Result>;
+    int Age) : IRequest<Result>;

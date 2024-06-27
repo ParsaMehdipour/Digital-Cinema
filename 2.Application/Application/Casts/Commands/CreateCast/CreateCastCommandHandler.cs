@@ -51,23 +51,14 @@ public class CreateCastCommandHandler : IRequestHandler<CreateCastCommand, Resul
         if (createLastName.IsSuccess is false)
             return Result.Fail(createLastName.Error.Message);
 
-        //Create a null age to set later in code
-        Age? age = null;
+        //Create age value object
+        var createAgeResult = Age.Create(request.Age);
 
-        if (request.Age is not null)
-        {
-            //Create age value object
-            var createAgeResult = Age.Create(request.Age.Value);
-
-            if (createAgeResult.IsSuccess is false)
-                return Result.Fail(createAgeResult.Error.Message);
-
-            //Set age
-            age = createAgeResult.Value;
-        }
+        if (createAgeResult.IsSuccess is false)
+            return Result.Fail(createAgeResult.Error.Message);
 
         //Create cast
-        var cast = Cast.Create(createFirstNameResult.Value, createLastName.Value, request.Gender, request.CastType, request.IsAlive, age);
+        var cast = Cast.Create(createFirstNameResult.Value, createLastName.Value, request.Gender, request.CastType, request.IsAlive, createAgeResult.Value);
 
         //Insertion
         await _repository.AddAsync(cast, cancellationToken);

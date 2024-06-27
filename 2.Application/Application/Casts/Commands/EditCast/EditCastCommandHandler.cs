@@ -58,18 +58,15 @@ public class EditCastCommandHandler : IRequestHandler<EditCastCommand, Result>
         if (createLastNameResult.IsSuccess is false)
             return Result.Fail(createLastNameResult.Error.Message);
 
-        if (request.Age is not null)
-        {
-            //Create age
-            var createAgeResult = Age.Create(request.Age.Value);
+        //Create age
+        var createAgeResult = Age.Create(request.Age);
 
-            //If the creation result failed
-            if (createAgeResult.IsSuccess is false)
-                return Result.Fail(createAgeResult.Error.Message);
+        //If the creation result failed
+        if (createAgeResult.IsSuccess is false)
+            return Result.Fail(createAgeResult.Error.Message);
 
-            //Set age
-            cast.SetAge(createAgeResult.Value);
-        }
+        //Set age
+        cast.SetAge(createAgeResult.Value);
 
         //Set values
         cast.SetFirstName(createFirstnameResult.Value);

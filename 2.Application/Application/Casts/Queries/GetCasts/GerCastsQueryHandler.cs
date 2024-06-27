@@ -25,7 +25,7 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
         _logger = logger;
     }
 
-    /// <summary>
+    /// <summary> 
     /// Handles the get casts query
     /// </summary>
     /// <param name="request">Request</param>
