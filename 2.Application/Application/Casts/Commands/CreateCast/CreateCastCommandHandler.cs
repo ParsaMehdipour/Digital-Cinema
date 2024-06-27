@@ -28,7 +28,7 @@ public class CreateCastCommandHandler : IRequestHandler<CreateCastCommand, Resul
     /// Handle method
     /// </summary>
     /// <param name="request">Create cast command send from the user</param>
-    /// <param name="cancellationToken"></param>
+    /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>
     /// Task returns an asynchronous result
     /// The result contains the id of the created cast

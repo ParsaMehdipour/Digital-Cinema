@@ -4,6 +4,9 @@ using FluentValidation;
 
 namespace Application.Casts.Commands.EditCast;
 
+/// <summary>
+/// Validates the command before reaching the handler
+/// </summary>
 public class EditCastCommandValidator : AbstractValidator<EditCastCommand>
 {
     public EditCastCommandValidator()

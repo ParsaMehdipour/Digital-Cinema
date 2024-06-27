@@ -75,6 +75,7 @@ public class EditCastCommandHandler : IRequestHandler<EditCastCommand, Result>
         cast.SetGender(request.Gender);
         cast.SetIsAlive(request.IsAlive);
 
+        //Update cast
         _repository.Update(cast);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

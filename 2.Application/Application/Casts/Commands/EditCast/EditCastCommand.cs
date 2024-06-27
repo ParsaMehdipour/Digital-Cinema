@@ -4,6 +4,9 @@ using MediatR;
 
 namespace Application.Casts.Commands.EditCast;
 
+/// <summary>
+/// Represents the edit cast command
+/// </summary>
 public record EditCastCommand(
     Guid Id,
     string FirstName,
