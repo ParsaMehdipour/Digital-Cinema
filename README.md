@@ -2,7 +2,7 @@ A digital cinema where moives are realesed with their trailers and users can get
 
 ## Installing / Getting Started
 
-A quick introduction of the minimal setup you need to get a hello world up &
+A quick introduction of the minimal setup you need to get the service up &
 running.
 
 I have added Dockerfile with the docker-compose to containerize the project
