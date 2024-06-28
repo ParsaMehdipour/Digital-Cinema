@@ -63,7 +63,7 @@ public class QueryRepository<TEntity> : IQueryRepository<TEntity> where TEntity 
     /// <param name="predicate"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<TEntity> GetWithoutQueryFilterAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
+    public async Task<TEntity?> GetWithoutQueryFilterAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         return await Entities.IgnoreQueryFilters().SingleOrDefaultAsync(predicate, cancellationToken);
     }
