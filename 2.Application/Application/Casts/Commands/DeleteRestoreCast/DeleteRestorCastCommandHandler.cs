@@ -35,7 +35,7 @@ public class DeleteRestoreCastCommandHandler : IRequestHandler<DeleteRestoreCast
     public async Task<Result> Handle(DeleteRestoreCastCommand request, CancellationToken cancellationToken)
     {
         //Get the cast by identifier
-        Cast cast = await _repository.GetByIdAsync(cancellationToken, request.Id);
+        Cast? cast = await _repository.GetWithoutQueryFilterAsync(c => c.Id == request.Id, cancellationToken);
 
         //If the cast is not found
         if (cast is null)

@@ -35,7 +35,7 @@ public interface IQueryRepository<TEntity> where TEntity : Entity
     /// <param name="predicate"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<TEntity> GetWithoutQueryFilterAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
+    Task<TEntity?> GetWithoutQueryFilterAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken);
 
     /// <summary>
     /// Exists this <see cref="TEntity"/> in database by no tracking.
