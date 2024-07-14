@@ -7,12 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\1.Domain\Domain\Domain.csproj" />
+    <Compile Remove="Movies\**" />
+    <EmbeddedResource Remove="Movies\**" />
+    <None Remove="Movies\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Movies\Commands\" />
-    <Folder Include="Movies\Queries\" />
+    <ProjectReference Include="..\..\1.Domain\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

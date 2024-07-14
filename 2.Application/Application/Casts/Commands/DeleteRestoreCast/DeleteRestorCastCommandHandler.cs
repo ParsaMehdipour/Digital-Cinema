@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Casts;
+﻿using Application.Casts.Commands.Exceptions;
+using Domain.Entities.Casts;
 using Domain.Repositories;
 using Domain.Repositories.UnitOfWork;
 using FluentResults;
@@ -39,7 +40,7 @@ public class DeleteRestoreCastCommandHandler : IRequestHandler<DeleteRestoreCast
 
         //If the cast is not found
         if (cast is null)
-            throw new KeyNotFoundException($"Fetch failed: Cast with the Id of {request.Id} is not found");
+            throw new CastNotFoundException(request.Id.ToString());
 
         //Log the operation
         _logger.LogInformation($"Initializing cast deletion/restoration with the id of {cast.Id}, Delete status : {request.Delete}");

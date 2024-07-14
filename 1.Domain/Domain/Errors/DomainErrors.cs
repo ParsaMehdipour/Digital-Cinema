@@ -2,6 +2,9 @@
 
 namespace Domain.Errors;
 
+/// <summary>
+/// Represents a domain error which holds all the different domain errors
+/// </summary>
 public static class DomainErrors
 {
     public static class Email

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Application.Casts.Commands.Exceptions;
+using AutoMapper;
 using Domain.Entities.Casts;
 using Domain.Repositories;
 using FluentResults;
@@ -42,7 +43,7 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastC
 
         //Throw an exception if the cast is not found
         if (cast is null)
-            throw new KeyNotFoundException($"Fetch failed: Cast with the Id of {request.Id} is not found");
+            throw new CastNotFoundException(request.Id.ToString());
 
         //Map the cast model
         GetCastCastDto castDto = _mapper.Map<GetCastCastDto>(cast);
