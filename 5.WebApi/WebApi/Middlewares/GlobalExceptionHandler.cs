@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using Domain.Exceptions;
+using FluentResults;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Text;
 using System.Text.Json;
@@ -21,16 +22,17 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
     {
         string jsonString;
 
-        if (exception is KeyNotFoundException notFoundException)
+        if (exception is DomainException domainException)
         {
             _logger.LogError(
-                notFoundException,
+                domainException,
                 "Exception occurred: {Message}",
-                notFoundException.Message);
+                domainException.Message);
 
-            httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            httpContext.Response.ContentType = "application/json";
 
-            jsonString = JsonSerializer.Serialize(new Result().WithError(notFoundException.Message));
+            jsonString = JsonSerializer.Serialize(new Result().WithError(domainException.Message));
 
             await httpContext.Response.WriteAsync(jsonString, Encoding.UTF8, cancellationToken);
 
@@ -39,9 +41,12 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
         else
         {
             _logger.LogError(
-                exception, "Exception occurred: {Message}", exception.Message);
+                exception,
+                "Exception occurred: {Message}",
+                exception.Message);
 
             httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            httpContext.Response.ContentType = "application/json";
 
             jsonString = JsonSerializer.Serialize(new Result().WithError(exception.Message));
 
