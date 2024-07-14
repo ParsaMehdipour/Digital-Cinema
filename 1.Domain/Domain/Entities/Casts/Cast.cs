@@ -46,14 +46,14 @@ public class Cast : Entity
 
     public void SetFirstName(FirstName firstName)
     {
-        if (FirstName == firstName) return;
+        if (FirstName != null && FirstName.Equals(firstName)) return;
 
         FirstName = firstName;
     }
 
     public void SetLastName(LastName lastName)
     {
-        if (LastName.Equals(lastName)) return;
+        if (LastName != null && LastName.Equals(lastName)) return;
 
         LastName = lastName;
     }
@@ -67,7 +67,7 @@ public class Cast : Entity
 
     public void SetAge(Age age)
     {
-        if (Age.Equals(age)) return;
+        if (Age != null && Age.Equals(age)) return;
 
         Age = age;
     }
