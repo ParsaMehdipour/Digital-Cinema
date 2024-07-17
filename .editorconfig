@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS8907: Parameter is unread. Did you forget to use it to initialize the property with that name?
+dotnet_diagnostic.CS8907.severity = warning

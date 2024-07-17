@@ -4,6 +4,7 @@ using Serilog;
 using SharedKernel;
 using SharedKernel.DataProviderSettings.MongoDB;
 using System.Reflection;
+using WebApi.Endpoints;
 using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,7 @@ var configuration = builder.Configuration;
 
 var seqUrl = (Environment.GetEnvironmentVariable("SeqUrl") ?? configuration["SeqUrl"])!;
 
-//Fetch mongo db settings from env or appsettings
+// Fetch mongo db settings from env or appsettings
 MongoDbDatabaseSettings mongoDbDatabaseSettings = new()
 {
     ConnectionString = (Environment.GetEnvironmentVariable("DomainEventsConnectionString.ConnectionString") ?? configuration["DomainEventsConnectionString:ConnectionString"])!,
@@ -43,13 +44,13 @@ builder.Host.UseSerilog((context, loggerConfig) =>
 
 #region Setup dependency injections
 
-//Set shared kernel dependencies
+// Set shared kernel dependencies
 services.AddSharedKernel();
 
-//Set persistence dependencies
+// Set persistence dependencies
 services.AddPersistence(mongoDbDatabaseSettings.ConnectionString, postgresConnectionString);
 
-//Set application dependencies
+// Set application dependencies
 services.AddApplication();
 
 #endregion
@@ -57,7 +58,6 @@ services.AddApplication();
 services.AddExceptionHandler<GlobalExceptionHandler>();
 services.AddProblemDetails();
 
-services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(sg =>
@@ -78,21 +78,20 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
 app.UseSerilogRequestLogging();
 
 SeedDatabase(app);
 
-//Customer exception handler
+// Customer exception handler
 app.UseExceptionHandler();
+
+// Map Casts api endpoints
+app.MapCastsApi();
 
 app.Run();
 
 
-//Seed data operations
+// Seed data operations
 static void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();

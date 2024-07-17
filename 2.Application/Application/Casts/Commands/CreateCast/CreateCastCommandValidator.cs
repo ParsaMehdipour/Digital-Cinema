@@ -12,6 +12,8 @@ public class CreateCastCommandValidator : AbstractValidator<CreateCastCommand>
     public CreateCastCommandValidator()
     {
         Include(new FirstNameValidator());
+        Include(new LastNameValidator());
+        Include(new AgeValidator());
     }
 }
 
@@ -38,5 +40,19 @@ internal class LastNameValidator : AbstractValidator<CreateCastCommand>
         RuleFor(ln => ln.LastName)
             .MaximumLength(LastName.MaxLength).WithName(nameof(LastName)).WithMessage(DomainErrors.LastName.TooLong.Message)
             .NotEmpty().WithMessage(DomainErrors.LastName.Empty);
+    }
+}
+
+/// <summary>
+/// Validator for last name
+/// </summary>
+internal class AgeValidator : AbstractValidator<CreateCastCommand>
+{
+    public AgeValidator()
+    {
+        RuleFor(ln => ln.Age)
+            .NotEqual(0).WithMessage(DomainErrors.Age.Zero.Message)
+            .GreaterThan(Age.MinNumber).WithMessage(DomainErrors.Age.TooYoung.Message)
+            .LessThan(Age.MaxNumber).WithMessage(DomainErrors.Age.TooOld.Message);
     }
 }

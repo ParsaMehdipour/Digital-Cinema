@@ -31,8 +31,9 @@ public class EditCastCommandHandler : IRequestHandler<EditCastCommand, Result>
     /// <param name="request">Request</param>
     /// <param name="cancellationToken">Cancellation Token</param>
     /// <returns>
-    /// Returns an async operation
+    /// A task that represents the asynchronous operation
     /// </returns>
+    /// <exception cref="CastNotFoundException">Thrown when no cast is found with the given identifier</exception>
     public async Task<Result> Handle(EditCastCommand request, CancellationToken cancellationToken)
     {
         //Get the cast by identifier

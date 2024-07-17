@@ -7,12 +7,12 @@ namespace Application.Casts.Queries.GetCast;
 /// Represents a get cast query
 /// </summary>
 /// <param name="Id"></param>
-public record GetCastQuery(Guid Id) : IRequest<Result<GetCastCastDto>>;
+public record GetCastQuery(Guid Id) : IRequest<Result<GetCastDto>>;
 
 /// <summary>
 /// Represents a get cast dto
 /// </summary>
-public record GetCastCastDto
+public record GetCastDto
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; } = string.Empty;

@@ -11,7 +11,7 @@ namespace Application.Casts.Queries.GetCast;
 /// <summary>
 /// Represents a get cast query handler
 /// </summary>
-public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastCastDto>>
+public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastDto>>
 {
     private readonly ICastRepository _repository;
     private readonly IMapper _mapper;
@@ -30,10 +30,11 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastC
     /// <param name="request">Request</param>
     /// <param name="cancellationToken">Cancellation Token</param>
     /// <returns>
-    /// Returns an async result
-    /// The Result contains a cast dto
+    /// A task that represents the asynchronous operation
+    /// The task result contains the cast dto with the same identifier
     /// </returns>
-    public async Task<Result<GetCastCastDto>> Handle(GetCastQuery request, CancellationToken cancellationToken)
+    /// <exception cref="CastNotFoundException">Thrown when no cast is found with the given identifier</exception>
+    public async Task<Result<GetCastDto>> Handle(GetCastQuery request, CancellationToken cancellationToken)
     {
         //Log the operation
         _logger.LogInformation($"Initializing fetch : cast with the id of {request.Id}");
@@ -46,7 +47,7 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastC
             throw new CastNotFoundException(request.Id.ToString());
 
         //Map the cast model
-        GetCastCastDto castDto = _mapper.Map<GetCastCastDto>(cast);
+        GetCastDto castDto = _mapper.Map<GetCastDto>(cast);
 
         return Result.Ok(castDto);
     }
