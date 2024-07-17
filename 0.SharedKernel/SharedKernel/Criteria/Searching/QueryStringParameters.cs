@@ -3,19 +3,9 @@
 /// <summary>
 /// Base query string parameters other custom classes will inherit from this class
 /// </summary>
-public abstract class QueryStringParameters
+public record QueryStringParameters(int MaxPageSize = 50, int PageNumber = 1, int PageSize = 10, bool IsDeleted = false)
 {
-    /// <summary>
-    /// Default max page size
-    /// </summary>
-    private const byte MaxPageSize = 50;
-
-    /// <summary>
-    /// Gets or sets the PageNumber
-    /// </summary>
-    public int PageNumber { get; set; } = 1;
-
-    private int _pageSize = 10;
+    private int _pageSize = PageSize;
 
     /// <summary>
     /// Gets or sets the PageSize
@@ -25,24 +15,4 @@ public abstract class QueryStringParameters
         get => _pageSize;
         set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
     }
-
-    /// <summary>
-    /// Gets or sets the OrderBy
-    /// </summary>
-    public string OrderBy { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the Search
-    /// </summary>
-    public string Search { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets the IsDeleted
-    /// </summary>
-    public bool IsDeleted { get; set; }
-
-    /// <summary>
-    /// Gets or sets the HasFilter
-    /// </summary>
-    protected bool HasFilter { get; set; }
-}
+};
