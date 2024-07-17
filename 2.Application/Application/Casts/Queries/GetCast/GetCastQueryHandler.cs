@@ -30,9 +30,10 @@ public class GetCastQueryHandler : IRequestHandler<GetCastQuery, Result<GetCastC
     /// <param name="request">Request</param>
     /// <param name="cancellationToken">Cancellation Token</param>
     /// <returns>
-    /// Returns an async result
-    /// The Result contains a cast dto
+    /// A task that represents the asynchronous operation
+    /// The task result contains the cast dto with the same identifier
     /// </returns>
+    /// <exception cref="CastNotFoundException">Thrown when no cast is found with the given identifier</exception>
     public async Task<Result<GetCastCastDto>> Handle(GetCastQuery request, CancellationToken cancellationToken)
     {
         //Log the operation

@@ -30,9 +30,9 @@ public class DeleteRestoreCastCommandHandler : IRequestHandler<DeleteRestoreCast
     /// <param name="request">Delete or restore cast command send from the user</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>
-    /// Task returns an asynchronous result
-    /// The result specifies whether the cast state change happened or not
+    /// A task that represents the asynchronous operation
     /// </returns>
+    /// <exception cref="CastNotFoundException">Thrown when no cast is found with the given identifier</exception>
     public async Task<Result> Handle(DeleteRestoreCastCommand request, CancellationToken cancellationToken)
     {
         //Get the cast by identifier

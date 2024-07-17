@@ -12,7 +12,7 @@ namespace Application.Casts.Queries.GetCasts;
 /// <summary>
 /// Represents a get casts query handler
 /// </summary>
-public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedResult<GetCastCastsDto>>>
+public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedResult<GetCastsDto>>>
 {
     private readonly ICastRepository _repository;
     private readonly IMapper _mapper;
@@ -30,9 +30,11 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
     /// </summary>
     /// <param name="request">Request</param>
     /// <param name="cancellationToken">CancellationToken</param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public async Task<Result<PagedResult<GetCastCastsDto>>> Handle(GetCastsQuery request, CancellationToken cancellationToken)
+    /// <returns>
+    /// A task that represents the asynchronous operation
+    /// The task result contains the paged result of get casts dto
+    /// </returns>
+    public async Task<Result<PagedResult<GetCastsDto>>> Handle(GetCastsQuery request, CancellationToken cancellationToken)
     {
         //Set query
         var casts = _repository.Get();
@@ -53,7 +55,7 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
             casts = casts.Where(c => c.Age.Value == request.Parameters.Age);
 
         //Create the result
-        var result = await casts.OrderByDescending(c => c.CreatedOnUtc).Select(c => new GetCastCastsDto()
+        var result = await casts.OrderByDescending(c => c.CreatedOnUtc).Select(c => new GetCastsDto()
         {
             Id = c.Id,
             FirstName = c.FirstName.Value,
