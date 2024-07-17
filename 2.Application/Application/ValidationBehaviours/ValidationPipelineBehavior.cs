@@ -1,17 +1,15 @@
-﻿using FluentResults;
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 
 namespace Application.ValidationBehaviours;
 
 /// <summary>
-/// Validation behaviour pipeline
+/// Validation behavior pipeline
 /// </summary>
 /// <typeparam name="TRequest"></typeparam>
 /// <typeparam name="TResponse"></typeparam>
 public class ValidationPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull, IRequest<TResponse>
-    where TResponse : ResultBase<TResponse>, new()
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -34,13 +32,13 @@ public class ValidationPipelineBehavior<TRequest, TResponse> : IPipelineBehavior
                 .SelectMany(v => v.Errors)
                 .ToList();
 
-            TResponse result = new();
+            string message = string.Empty;
 
-            foreach (var failure in failures)
-                result.Reasons.Add(new Error(failure.ErrorMessage));
+            foreach (var failiure in failures)
+                message += failiure + "; ";
 
-            if (result.Errors.Any())
-                return result;
+            if (failures.Any())
+                throw new ValidationException(message);
         }
 
         return await next();
