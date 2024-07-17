@@ -4,6 +4,7 @@ using Serilog;
 using SharedKernel;
 using SharedKernel.DataProviderSettings.MongoDB;
 using System.Reflection;
+using WebApi.Endpoints;
 using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,7 +58,6 @@ services.AddApplication();
 services.AddExceptionHandler<GlobalExceptionHandler>();
 services.AddProblemDetails();
 
-services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen(sg =>
@@ -78,16 +78,14 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
 app.UseSerilogRequestLogging();
 
 SeedDatabase(app);
 
 //Customer exception handler
 app.UseExceptionHandler();
+
+app.MapCastsApi();
 
 app.Run();
 
