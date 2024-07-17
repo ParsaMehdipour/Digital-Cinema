@@ -11,7 +11,7 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<Cast, GetCastCastDto>().ForMember(dest => dest.Age,
+        CreateMap<Cast, GetCastDto>().ForMember(dest => dest.Age,
                 opt => opt.MapFrom(src => src.Age.Value))
             .ForMember(dest => dest.FirstName,
                 opt => opt.MapFrom(src => src.FirstName.Value))
