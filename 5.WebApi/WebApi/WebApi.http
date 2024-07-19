@@ -1,6 +1,40 @@
-@CD.WebApi_HostAddress = http://localhost:5204
+@WebApi_HostAddress = http://localhost:8080
 
-GET {{CD.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{WebApi_HostAddress}}/api/casts/
 
 ###
+
+GET {{WebApi_HostAddress}}/api/casts/0115135b-f80e-43e4-a8c6-163b34fc1053
+
+###
+
+POST {{WebApi_HostAddress}}/api/casts/
+content-type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Mayor",
+  "castType": 0,
+  "gender": 0,
+  "isAlive": true,
+  "age": 46
+}
+
+###
+
+PUT {{WebApi_HostAddress}}/api/casts/
+content-type: application/json
+
+{
+  "id": "677cb811-da37-463b-80d2-19e8c1b45acc",
+  "firstName": "John",
+  "lastName": "Major",
+  "castType": 0,
+  "gender": 0,
+  "isAlive": true,
+  "age": 81
+}
+
+###
+
+DELETE {{WebApi_HostAddress}}/api/casts?castId=199f6647-4750-42fb-9675-b9d932f3e450

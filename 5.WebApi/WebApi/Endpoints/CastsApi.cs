@@ -121,7 +121,7 @@ public static class CastsApi
     /// Deletes a cast
     /// </summary>
     /// <param name="mediator">Mediator</param>
-    /// <param name="castId">Cast id</param>
+    /// <param name="castId">Cast identifier</param>
     /// <returns>
     /// A task that represents the asynchronous operations
     /// </returns>
