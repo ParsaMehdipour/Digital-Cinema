@@ -2,11 +2,11 @@
 
 GET {{WebApi_HostAddress}}/api/casts/
 
-###
+### Get casts
 
 GET {{WebApi_HostAddress}}/api/casts/0115135b-f80e-43e4-a8c6-163b34fc1053
 
-###
+### Get cast
 
 POST {{WebApi_HostAddress}}/api/casts/
 content-type: application/json
@@ -20,7 +20,7 @@ content-type: application/json
   "age": 46
 }
 
-###
+### Create cast
 
 PUT {{WebApi_HostAddress}}/api/casts/
 content-type: application/json
@@ -35,6 +35,8 @@ content-type: application/json
   "age": 81
 }
 
-###
+### Edit cast
 
 DELETE {{WebApi_HostAddress}}/api/casts?castId=199f6647-4750-42fb-9675-b9d932f3e450
+
+### Delete cast
