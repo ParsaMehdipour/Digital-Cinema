@@ -28,8 +28,4 @@
     <ProjectReference Include="..\..\2.Application\Application\Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Casts\Queries\" />
-  </ItemGroup>
-
 </Project>

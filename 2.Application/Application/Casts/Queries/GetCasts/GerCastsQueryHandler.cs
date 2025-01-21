@@ -1,11 +1,10 @@
-﻿using Application.Casts.Queries.GetCast;
-using AutoMapper;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Repositories;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Pagination;
-using Microsoft.Extensions.Logging;
 
 namespace Application.Casts.Queries.GetCasts;
 
@@ -16,13 +15,11 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
 {
     private readonly ICastRepository _repository;
     private readonly IMapper _mapper;
-    private readonly ILogger<GetCastQueryHandler> _logger;
 
-    public GerCastsQueryHandler(ICastRepository repository, IMapper mapper, ILogger<GetCastQueryHandler> logger)
+    public GerCastsQueryHandler(ICastRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
-        _logger = logger;
     }
 
     /// <summary> 
@@ -55,14 +52,7 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
             casts = casts.Where(c => c.Age.Value == request.Parameters.Age);
 
         //Create the result
-        var result = await casts.OrderByDescending(c => c.CreatedOnUtc).Select(c => new GetCastsDto()
-        {
-            Id = c.Id,
-            FirstName = c.FirstName.Value,
-            LastName = c.LastName.Value,
-            Age = c.Age.Value,
-            IsAlive = c.IsAlive
-        }).ToListAsync(cancellationToken);
+        var result = await casts.OrderByDescending(c => c.CreatedOnUtc).ProjectTo<GetCastsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
 
         //Create the paged result
         var pagedResult = result.AsQueryable().ToPageResult(request.Parameters.PageNumber, request.Parameters.PageSize);
