@@ -52,10 +52,12 @@ public class GerCastsQueryHandler : IRequestHandler<GetCastsQuery, Result<PagedR
             casts = casts.Where(c => c.Age.Value == request.Parameters.Age);
 
         //Create the result
-        var result = await casts.OrderByDescending(c => c.CreatedOnUtc).ProjectTo<GetCastsDto>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+        var projectedQuery = casts
+         .OrderByDescending(c => c.CreatedOnUtc)
+         .ProjectTo<GetCastsDto>(_mapper.ConfigurationProvider);
 
         //Create the paged result
-        var pagedResult = result.AsQueryable().ToPageResult(request.Parameters.PageNumber, request.Parameters.PageSize);
+        var pagedResult = projectedQuery.ToPageResult(request.Parameters.PageNumber, request.Parameters.PageSize);
 
         return Result.Ok(pagedResult);
     }
