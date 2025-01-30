@@ -55,19 +55,7 @@ docker-compose up
 
 This will start PostgreSQL, ElasticSearch, and other required services.
 
-### 4️⃣ Apply Database Migrations
-
-```bash
-# Add the command for applying migrations (specific to your ORM)
-```
-
-### 5️⃣ Start the Application
-
-```bash
-# Add the command to run the Web API
-```
-
-### 6️⃣ Access the API
+### 4️⃣ Access the API
 
 Once running, the API will be accessible at: **`http://localhost:5000`** (or your configured port).
 
